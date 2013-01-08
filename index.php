@@ -8,7 +8,27 @@ $db->connect('localhost', 'root', 'hicfneg12', 'playmas');
 
 $count = $db->select('users', 'count', '1');
 
-echo '<p>Number of rows in users: ' . $count . '</p>';
+printf('<p>Number of rows in users: %d</p>', $count);
+
+$result = $db->select('users', '*', '1');
+$rowCount = $db->getRowCount();
+$fieldCount = $db->getFieldCount();
+
+printf('<p>Query returned %d rows and %d columns.</p>', $rowCount, $fieldCount);
+
+echo '<table><tr>';
+foreach ($result[0] as $name=>$value) {
+  printf('<th>%s</th>', htmlspecialchars($name));
+}
+echo '</tr>';
+
+foreach ($result as $row) {
+  echo '<tr>';
+  foreach ($row as $name=>$value) {
+    printf('<td>%s</td>', htmlspecialchars($value));
+  }
+  echo '</tr>';
+}
 
 success('End of execution.');
 exit();
