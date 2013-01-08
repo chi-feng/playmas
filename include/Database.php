@@ -6,6 +6,9 @@ class Database {
   
   private $mysqli;
   
+  private $fieldCount;
+  private $numRows;
+  
   public function __construct() {
     $this->mysqli = NULL; 
   }
@@ -127,8 +130,9 @@ class Database {
         $row = $result->fetch_assoc();
         return $row['count'];
       }
-      $num_rows = $this->mysqli->num_rows;
-      if ($num_rows == 0) {
+      $this->numRows = $this->mysqli->num_rows;
+      $this->fieldCount = $this->mysqli->field_count;
+      if ($numRows == 0) {
         return array();
       }
       $array = array();
@@ -138,6 +142,14 @@ class Database {
       $result->close(); // free result set
       return $array;
     }
+  }
+
+  public function getFieldCount() {
+    return $this->fieldCount;
+  }
+  
+  public function getRowCount() {
+    return $this->numRows();
   }
 
 }
