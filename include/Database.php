@@ -130,8 +130,8 @@ class Database {
         $row = $result->fetch_assoc();
         return $row['count'];
       }
-      $this->numRows = $this->mysqli->num_rows;
-      $this->fieldCount = $this->mysqli->field_count;
+      $this->numRows = $result->num_rows;
+      $this->fieldCount = $result->field_count;
       if ($this->numRows == 0) {
         return array();
       }
