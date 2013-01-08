@@ -4,6 +4,7 @@
 <link href="css/screen.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body>
+<div id="content">
 <?php
 
 require_once('include/Common.php');
@@ -45,5 +46,6 @@ success('End of execution.');
 exit();
 
 ?>
+</div>
 </body>
 </html>
