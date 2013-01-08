@@ -132,7 +132,7 @@ class Database {
       }
       $this->numRows = $this->mysqli->num_rows;
       $this->fieldCount = $this->mysqli->field_count;
-      if ($numRows == 0) {
+      if ($this->numRows == 0) {
         return array();
       }
       $array = array();
