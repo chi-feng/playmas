@@ -25,6 +25,7 @@ foreach ($result as $row) {
     printf('<td>%s</td>', htmlspecialchars($value));
   echo '</tr>';
 }
+echo '</table>';
 
 echo '<h2>Routing info</h2>';
 
