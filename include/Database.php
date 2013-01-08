@@ -100,7 +100,7 @@ class Database {
     $count = ($fields == 'count' || $fields == 'COUNT(*)');
         
     if ($fields !== '*') {
-      $fields = '(`'.implode('`,`', $names).'`)';
+      $fields = '(`'.implode('`,`', $fields).'`)';
     }
     
     $clauses = 'FALSE'; // returns nothing
