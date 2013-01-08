@@ -75,31 +75,62 @@ class Database {
     
   }
   
-  public function select($table, $fields, $filters) {
-    
-    if ($fields !== '*') {
-      $fields = '(`'.implode('`,`', $names).'`)';
-    }
-    
+  private function flatten($filters) {
     $clauses = array();
-    
     foreach($filters as $filter) {
       $name = $f['name'];
       $operator = $f['operator']; 
       $value = $this->con->real_escape_string($f['value']);
       $clauses[] = "`$name` $operator '$value'";
     }
-    
     if (count(clauses) > 1) {
-      $filters = implode(' AND ', $clauses);
+      return implode(' AND ', $clauses);
     } else if (count(clauses) == 1) {
-      $filters = $clauses[0];
+      return $clauses[0];
     } else {
       fatal_error('Database Error', 'SELECT without WHERE clause.');
     }
-
-    $sql = "SELECT $fields FROM $table WHERE $filters ;";
+  }
+  
+  public function select($table, $fields, $filters, $limit=NULL) {
     
+    $count = ($fields == 'count');
+        
+    if ($fields !== '*') {
+      $fields = '(`'.implode('`,`', $names).'`)';
+    }
+    
+    $clauses = $this->flatten($filters);
+
+    if ($count) {
+      $fields = 'COUNT(*) as `count`';
+    }
+
+    $sql = "SELECT $fields FROM $table WHERE $filters ";
+
+    if (!is_null($limit)) {
+      if (count($limit) != 2) {
+        fatal_error('Database Error', 'In select(), limit must be 1x2 array');
+      }
+      $sql .= "LIMIT {$limit[0]}, {$limit[1]} ";
+    }
+
+    if ($result = $this->mysqli->query($sql)) {
+      if ($count) {
+        $row = $result->fetch_assoc();
+        return $row['count'];
+      }
+      $num_rows = $this->mysqli->num_rows;
+      if ($num_rows == 0) {
+        return array();
+      }
+      $array = array();
+      while ($row = $result->fetch_assoc()) {
+        $array[] = $row;
+      }
+      $result->close(); // free result set
+      return $array;
+    }
   }
 
 }
