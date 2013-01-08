@@ -99,7 +99,7 @@ class Database {
     
     $count = ($fields == 'count' || $fields == 'COUNT(*)');
         
-    if ($fields !== '*') {
+    if ($fields != '*') {
       $fields = '(`'.implode('`,`', $fields).'`)';
     }
     
@@ -149,7 +149,7 @@ class Database {
   }
   
   public function getRowCount() {
-    return $this->numRows();
+    return $this->numRows;
   }
 
 }
