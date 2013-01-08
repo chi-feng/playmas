@@ -12,7 +12,7 @@ function fatal_error($errname, $details) {
 }
 
 function success($message) {
-  echo '<div class="error">';
+  echo '<div class="success">';
   echo '<p><strong>Success!</strong></p>';
   echo '<p>' . htmlspecialchars($message) . '</p>';
   echo '</div>';
