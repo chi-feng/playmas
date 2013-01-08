@@ -12,7 +12,7 @@ class Database {
   
   public function connect($host, $username, $password, $database) {
     $this->mysqli = new mysqli($host, $username, $password, $database);
-    if ($this->mysqli->connect_errno()) {
+    if ($this->mysqli->connect_errno) {
       fatal_error('Database Error', $this->mysqli->connect_error);
     }
   }
