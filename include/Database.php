@@ -65,13 +65,40 @@ class Database {
     $fields = '(`'.implode('`,`', $names).'`)';
     $values = '(\''.implode('\',\'', $values).'\')';
 
-    $sql = "INSERT INTO $table $fields VALUES $values;";
+    $sql = "INSERT INTO $table $fields VALUES $values ;";
 
     if($result = $this->con->query($sql)) {
       return $this->mysqli->insert_id;
     } else {
       fatal_error('Database Error', $sql.'<br />'.$this->con->error);
     }
+    
+  }
+  
+  public function select($table, $fields, $filters) {
+    
+    if ($fields !== '*') {
+      $fields = '(`'.implode('`,`', $names).'`)';
+    }
+    
+    $clauses = array();
+    
+    foreach($filters as $filter) {
+      $name = $f['name'];
+      $operator = $f['operator']; 
+      $value = $this->con->real_escape_string($f['value']);
+      $clauses[] = "`$name` $operator '$value'";
+    }
+    
+    if (count(clauses) > 1) {
+      $filters = implode(' AND ', $clauses);
+    } else if (count(clauses) == 1) {
+      $filters = $clauses[0];
+    } else {
+      fatal_error('Database Error', 'SELECT without WHERE clause.');
+    }
+
+    $sql = "SELECT $fields FROM $table WHERE $filters ;";
     
   }
 
