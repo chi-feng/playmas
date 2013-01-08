@@ -94,13 +94,20 @@ class Database {
   
   public function select($table, $fields, $filters, $limit=NULL) {
     
-    $count = ($fields == 'count');
+    $count = ($fields == 'count' || $fields == 'COUNT(*)');
         
     if ($fields !== '*') {
       $fields = '(`'.implode('`,`', $names).'`)';
     }
     
-    $clauses = $this->flatten($filters);
+    $clauses = 'FALSE'; // returns nothing
+    if (is_array($filters)) {
+      $clauses = $this->flatten($filters);
+    } else if ($filters == 1) {
+      $clauses = '1';
+    } else {
+      fatal_error('Database Error', 'In select(), filters must be an array or 1');
+    }
 
     if ($count) {
       $fields = 'COUNT(*) as `count`';
