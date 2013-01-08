@@ -1,5 +1,8 @@
 <?php
 
+define('TIMEZONE', 'America/New_York');
+date_default_timezone_set(TIMEZONE);
+
 function fatal_error($errname, $details) {
   echo '<div style="clear:both;padding:1em;margin:1em;border:1px solid #f00;background:#fcc;">';
   echo '<p style="font-size:120%"><strong>' . htmlspecialchars($errname) .'</strong></p>';
