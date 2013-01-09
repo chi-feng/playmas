@@ -1,6 +1,7 @@
 <?php
 
 $allowedViews = array(
+  'home',
   'login_form',
   'registration_form',
   'public_profile',
