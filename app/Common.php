@@ -3,7 +3,7 @@
 define('TIMEZONE', 'America/New_York');
 date_default_timezone_set(TIMEZONE);
 
-define('SITEROOT', 'http://localhost/~feng/playmas/');
+define('SITEROOT', 'http://play.measong.com/');
 
 define('BCRYPT_ITER', 10);
 
