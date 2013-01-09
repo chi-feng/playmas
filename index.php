@@ -23,7 +23,29 @@ if ($action == 'user_new') {
     fatal_error('Invalid Request', 'Unknown HTTP verb in user_new');
   }
 }
-  
+
+if ($action == 'login') {
+  require_once('controllers/LoginController.php');
+  $loginCtrl = new LoginController();
+  if ($verb == 'GET') {
+    $loginCtrl->showLoginForm();
+  } elseif ($verb == 'POST') {
+    $loginCtrl->doLogin($_POST);
+  } else {
+    fatal_error('Invalid Request', 'Unknown HTTP verb in login');
+  }
+}
+
+if ($action == 'logout') {
+  require_once('controllers/LoginController.php');
+  $loginCtrl = new LoginController();
+  if ($verb == 'GET') {
+    $loginCtrl->showLoginForm();
+  } else {
+    fatal_error('Invalid Request', 'Unknown HTTP verb in logout');
+  }
+}
+
 $views->render('html');
 
 ?>
