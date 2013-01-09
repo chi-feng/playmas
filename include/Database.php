@@ -99,7 +99,7 @@ class Database {
     
     $count = ($fields == 'count' || $fields == 'COUNT(*)');
         
-    if ($fields != '*') {
+    if (is_array($fields)) {
       $fields = '(`'.implode('`,`', $fields).'`)';
     }
     
