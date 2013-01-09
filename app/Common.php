@@ -23,6 +23,11 @@ function success($message) {
 function validate($value, $type, $options=NULL) {
   $value = trim($value);
   switch ($type) {
+    case 'alphanumeric':
+      return array(
+        'valid' => ctype_alnum($value),
+        'value' => $value);
+      break;
     case 'string':
       $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
       return array(
