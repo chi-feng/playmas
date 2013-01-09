@@ -5,6 +5,8 @@ date_default_timezone_set(TIMEZONE);
 
 define('SITEROOT', 'http://localhost/~feng/playmas/');
 
+define('BCRYPT_ITER', 10);
+
 function fatal_error($errname, $details) {
   echo '<div class="error">';
   echo '<p><strong>' . $errname .'</strong></p>';
