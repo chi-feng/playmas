@@ -5,8 +5,7 @@ class User {
   private $id;
   private $username;
   private $email;
-  private $passwordhash; 
-  private $number;
+  private $passwordhash;
   private $cred;
   private $created;
   private $accessed;
@@ -18,11 +17,45 @@ class User {
     $this->username = $array['username'];
     $this->email = $array['email'];
     $this->passwordhash = $array['passwordhash'];
-    $this->number = $array['number'];
     $this->cred = $array['cred'];
     $this->created = $array['created'];
-    $this->accessed = $array['accessed'];
     $this->status = $array['status'];
+  }
+  
+  public function getInsertFields() {
+    $fields = array(
+      array(
+        'name'=>'username',
+        'type'=>'string',
+        'value'=>$this->username
+      ),
+      array(
+        'name'=>'email',
+        'type'=>'string',
+        'value'=>$this->email
+      ),
+      array(
+        'name'=>'passwordhash',
+        'type'=>'string',
+        'value'=>$this->passwordhash
+      ),
+      array(
+        'name'=>'cred',
+        'type'=>'int',
+        'value'=>$this->cred
+      ),
+      array(
+        'name'=>'created',
+        'type'=>'int',
+        'value'=>$this->created
+      ),
+      array(
+        'name'=>'status',
+        'type'=>'int',
+        'value'=>$this->status
+      )      
+    );
+    return $fields; 
   }
   
   public function getID(){
@@ -53,10 +86,6 @@ class User {
     return $this->created;
   }
   
-  public function getAccessed(){
-    return $this->accessed;
-  }
-  
   public function getStatus() {
     return $this->status;
   }
@@ -73,24 +102,16 @@ class User {
     $this->passwordhash = passwordhash;
   }
   
-  public function setNumber($number){
-    $this->number = number;
-  }
-  
   public function setCred($cred){
     $this->cred = cred;
-  }
-  
-  public function setAccessed(){
-    $this->accessed = time();
   }
   
   public function setStatus($status) {
     $this->status = $status;
   }
   
-  public function save() {
-    
+  public function setID($id) {
+    $this->id = $id;
   }
 
 }
