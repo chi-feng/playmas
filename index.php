@@ -3,6 +3,10 @@
 require_once('app/Common.php');
 require_once('app/Views.php');
 
+require_once('app/Database.php');
+$db = new Database();
+$db->connect('localhost', 'root', 'hicfneg12', 'playmas');
+
 $views = new Views();
 
 $action = isset($_GET['a']) ? $_GET['a'] : 'home';
