@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <link href="<?=route('css/screen.css');?>" rel="stylesheet" type="text/css" media="screen" />
-  <link rel="shortcut icon" href="<?=route('favicon.ico');?>" />
+  <link rel="icon" href="<?=route('favicon.png');?>" sizes="16x16" type="image/png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
 <body>
