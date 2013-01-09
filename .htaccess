@@ -1,5 +1,7 @@
 RewriteEngine On
 
+RewriteBase /playmas/
+
 RewriteRule ^home?$ index.php?a=home [NC,L]
 RewriteRule ^login?$ index.php?a=login [NC,L]
 RewriteRule ^logout?$ index.php?a=logout [NC,L]
