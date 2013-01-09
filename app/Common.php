@@ -20,8 +20,37 @@ function success($message) {
   echo '</div>';
 }
 
-function validate($value, $type) {
-  
+function validate($value, $type, $options=NULL) {
+  $value = trim($value);
+  switch ($type) {
+    case 'string':
+      $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+      return array(
+        'valid'=>!empty($value),
+        'value'=>$value);
+      break;
+    case 'int':
+      $value = filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+      return array(
+        'valid'=>filter_var($value, FILTER_VALIDATE_INT),
+        'value'=>$value);
+      break;
+    case 'email':
+      $value = filter_var($value, FILTER_SANITIZE_EMAIL);
+      return array(
+        'valid'=>filter_var($value, FILTER_VALIDATE_EMAIL),
+        'value'=>$value);
+      break;
+    case 'url':
+      $value = filter_var($value, FILTER_SANITIZE_URL);
+      return array(
+        'valid'=>filter_var($value, FILTER_VALIDATE_URL),
+        'value'=>$value);
+      break;
+    default:
+      fatal_error('Common.validate', 'Unknown type '.$type);
+  }
+  return false;
 }
 
 function route($route) {
