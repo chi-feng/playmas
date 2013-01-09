@@ -5,7 +5,8 @@ $allowedViews = array(
   'registration_form',
   'public_profile',
   'private_profile',
-  'test'
+  'test',
+  'var_dump' // for debugging stuff
 );
 
 ?>
