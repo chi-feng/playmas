@@ -1,5 +1,7 @@
 <?php
 
+require_once('views/List.php');
+
 class Views {
   
   private $output;
@@ -9,7 +11,10 @@ class Views {
   }
   
   public function showView($view, $options=NULL) {
-    // TODO: check if $view is a valid view
+    global $allowedViews;
+    if (!in_array($view, $allowedViews)) {
+      fatal_error('View Error', "View '$view' not in allowedViews");
+    }
     ob_start();
     require("views/{$view}.php");
     $this->output = ob_get_contents();
