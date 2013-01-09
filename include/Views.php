@@ -32,23 +32,4 @@ class Views {
   
 }
 
-
-$foo = new Foo();
-
-class UserController { 
-  
-
-  public function displayRegistrationForm() {
-    global $foo; 
-    $foo->showView('registration');
-    
-    
-  }
-  
-  public function registerUser($postData) {
-    
-  }
-  
-}
-
 ?>
