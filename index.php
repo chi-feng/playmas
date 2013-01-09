@@ -16,7 +16,7 @@ if ($action == 'user_new') {
   require_once('controllers/UserController.php');
   $userCtrl = new UserController(); 
   if ($verb == 'GET') {
-    $userCtrl->displayRegistrationForm(); 
+    $userCtrl->showRegistrationForm(); 
   } elseif ($verb == 'POST') {
     $userCtrl->registerUser($_POST);
   } else {

@@ -6,7 +6,7 @@ class UserController {
     
   }
 
-  public function displayRegistrationForm() {
+  public function showRegistrationForm() {
     global $views;
     $views->showView('registration_form');
   }
