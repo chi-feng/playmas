@@ -70,10 +70,10 @@ class Database {
 
     $sql = "INSERT INTO $table $fields VALUES $values ;";
 
-    if($result = $this->con->query($sql)) {
+    if($result = $this->mysqli->query($sql)) {
       return $this->mysqli->insert_id;
     } else {
-      fatal_error('Database Error', $sql.'<br />'.$this->con->error);
+      fatal_error('Database Error', $sql.'<br />'.$this->mysqli->error);
     }
     
   }
