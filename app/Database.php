@@ -1,7 +1,5 @@
 <?php
 
-require_once('include/Common.php');
-
 class Database {
   
   private $mysqli;
