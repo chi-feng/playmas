@@ -73,7 +73,7 @@ class Database {
     if($result = $this->mysqli->query($sql)) {
       return $this->mysqli->insert_id;
     } else {
-      fatal_error('Database Error', $sql.'<br />'.$this->mysqli->error);
+      fatal_error('Database Error', '<code>'.$sql.'</code><br />'.$this->mysqli->error);
     }
     
   }
