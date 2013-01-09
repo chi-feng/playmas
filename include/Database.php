@@ -49,18 +49,18 @@ class Database {
           if (is_int($f['value'])) {
             $value = int($f['value']);
           } else {
-            fatal_error('Database Error', "In insert(), Field '{$field['name']}' not of type Integer.");
+            fatal_error('Database Error', "In insert(), Field '{$f['name']}' not of type Integer.");
           }
           break;
         case 'double':
           if (is_double($f['value'])) {
             $value = float($f['value']);
           } else {
-            fatal_error('Database Error', "In insert(), Field '{$field['name']}' not of type Double.");
+            fatal_error('Database Error', "In insert(), Field '{$f['name']}' not of type Double.");
           }
           break;
         default:
-          fatal_error('Database Error', "In insert(), Field '{$field['name']}' has unknown type '{$field['type']}'.");
+          fatal_error('Database Error', "In insert(), Field '{$f['name']}' has unknown type '{$field['type']}'.");
       }
       $values[] = $this->mysqli->real_escape_string($value);
     }
