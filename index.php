@@ -1,7 +1,7 @@
 <?php
 
-require_once('include/Common.php');
-require_once('include/Views.php');
+require_once('app/Common.php');
+require_once('app/Views.php');
 
 $views = new Views();
 
@@ -13,7 +13,7 @@ if ($action == 'test') {
 }
 
 if ($action == 'user_new') {
-  require_once('include/UserController.php');
+  require_once('controllers/UserController.php');
   $userCtrl = new UserController(); 
   if ($verb == 'GET') {
     $userCtrl->displayRegistrationForm(); 
