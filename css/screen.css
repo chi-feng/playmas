@@ -36,7 +36,7 @@ p { margin-bottom: 0.5em; }
 
 #content h1 {
   font-size: 100px;
-  text-align:center;
+  text-align:right;
   margin-top: 25px;
 }
 
@@ -165,4 +165,25 @@ div#registration div#errors li {
   color: #f21;
   border: 1px solid rgba(255,0,0,0.5);
   background: rgba(255,0,0,0.25);
+}
+
+a.homepage-button {
+  display:block;
+  margin: 10px 0;
+  padding: 15px;
+  background: rgba(0,0,0,0.25);
+  color: #ccc;
+  text-decoration: none;
+  font-size: 50px;
+  -webkit-transition: all 0.15s ease-in-out; 
+  -moz-transition: all 0.15s ease-in-out; 
+  -o-transition: all 0.15s ease-in-out; 
+  -ms-transition: all 0.15s ease-in-out; 
+  transition: all 0.15s ease-in-out;
+}
+
+
+a.homepage-button:hover {
+  background: rgba(80,80,80,0.25);
+  color: #fff;
 }
