@@ -34,6 +34,48 @@ foreach ($result as $row) {
 }
 echo '</table>';
 
+$fields = array(
+  array(
+    'name' => 'username',
+    'type' => 'string',
+    'value' => 'yes'
+    ),
+  array(
+    'name' => 'email',
+    'type' => 'string',
+    'value' => 'yes'
+    ),
+  array(
+    'name' => 'passwordhash',
+    'type' => 'string',
+    'value' => 'yes'
+    ),
+  array(
+    'name' => 'number',
+    'type' => 'int',
+    'value' => '0'
+    ),
+  array(
+    'name' => 'cred',
+    'type' => 'int',
+    'value' => '0'
+    ),
+  array(
+    'name' => 'created',
+    'type' => 'int',
+    'value' => time()
+    ),
+  array(
+    'name' => 'status',
+    'type' => 'int',
+    'value' => '1'
+    )   
+);
+
+$id = $db->insert('users', $fields); 
+
+printf('<p>Insert user, got id %d.</p>', $id);
+
 echo '<h2>Routing info</h2>';
 
 echo '<pre>';
