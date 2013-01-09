@@ -7,5 +7,5 @@ POST variables
 
 GET variables
 
-<?php print_r($_POST); ?>
+<?php print_r($_GET); ?>
 </pre>
