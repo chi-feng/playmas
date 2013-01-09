@@ -46,14 +46,14 @@ class Database {
           $value = $f['value'];
           break;
         case 'int':
-          if (is_int($f['value'])) {
+          if (is_numeric($f['value'])) {
             $value = int($f['value']);
           } else {
             fatal_error('Database Error', "In insert(), Field '{$f['name']}' not of type Integer.");
           }
           break;
         case 'double':
-          if (is_double($f['value'])) {
+          if (is_numeric($f['value'])) {
             $value = float($f['value']);
           } else {
             fatal_error('Database Error', "In insert(), Field '{$f['name']}' not of type Double.");
