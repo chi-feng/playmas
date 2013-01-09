@@ -15,9 +15,13 @@ class Views {
     if (!in_array($view, $allowedViews)) {
       fatal_error('View Error', "View '$view' not in allowedViews");
     }
+
+    global $viewOptions;
+    $viewOptions = $options; 
+    
     ob_start();
     require("views/{$view}.php");
-    $this->output = ob_get_contents();
+    $this->output .= ob_get_contents();
     ob_end_clean();
   }
   
