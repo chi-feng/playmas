@@ -12,6 +12,10 @@ $views = new Views();
 $action = isset($_GET['a']) ? $_GET['a'] : 'home';
 $verb = $_SERVER['REQUEST_METHOD'];
 
+if ($action == 'home') {
+  $views-showView('home');
+}
+
 if ($action == 'test') {
   $views->showView('test');
 }
