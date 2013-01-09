@@ -30,6 +30,15 @@ p { margin-bottom: 0.5em; }
   border-radius: 5px;
 }
 
+#content h1 {
+  font-family: "Helvetica Neue";
+  font-size: 100px;
+  font-weight:100;
+  text-align:center;
+  margin-bottom: -120px;
+  margin-top: 40px;
+}
+
 table { border-collapse:collapse; margin-bottom: 0.5em; border-radius: 4px; }
 table, th, td { border: 1px solid #000; padding: 0.3em; }
 
@@ -77,6 +86,7 @@ div#registration {
   margin: 0 auto;
   width: 600px;
   padding: 1em;
+  margin-top: 20%;
 }
 
 form#registration-form {
@@ -102,8 +112,8 @@ form#registration-form .textbox {
   padding: 5px;
   padding-bottom: 0;
   border: none;
-  background-color:rgba(255,255,255,0.3);
-  border-bottom: 1px solid rgba(255,200,120,1.0);
+  background-color:rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(0,80,130,0.9);
 }
 
 
