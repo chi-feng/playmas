@@ -79,9 +79,9 @@ class Database {
   private function flatten($filters) {
     $clauses = array();
     foreach($filters as $filter) {
-      $name = $f['name'];
-      $operator = $f['operator']; 
-      $value = $this->con->real_escape_string($f['value']);
+      $name = $f[0];
+      $operator = $f[1]; 
+      $value = $this->con->real_escape_string($f[2]);
       $clauses[] = "`$name` $operator '$value'";
     }
     if (count(clauses) > 1) {
