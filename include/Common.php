@@ -24,6 +24,10 @@ function validate($value, $type) {
   
 }
 
+function route($route) {
+  return SITEROOT.$route;
+}
+
 function href($route, $text) {
   return sprintf('<a href="%s">%s</a>', SITEROOT.$route, $text);
 }
