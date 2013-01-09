@@ -32,6 +32,11 @@ class LoginController {
     // do something with errors, return json or html
   }
   
+  public function doLogout() {
+    // TODO: unset/destroy session variables
+    // redirect to home page or login screen.
+  }
+  
 }
 
 ?>
