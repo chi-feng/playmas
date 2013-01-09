@@ -5,3 +5,4 @@
 </head>
 <body>
 <div id="content">
+  <h1>Play MAS</h1>
