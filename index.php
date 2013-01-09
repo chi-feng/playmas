@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once('app/Common.php');
 require_once('app/Views.php');
 
@@ -55,5 +57,7 @@ if ($action == 'logout') {
 }
 
 $views->render('html');
+
+session_write_close();
 
 ?>
