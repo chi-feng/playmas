@@ -14,7 +14,7 @@ class LoginController {
   public function doLogin($postvars) {
     require_once('app/Bcrypt.php');
     require_once('models/User.php');
-    $bcrypt = new Bcrypt(10);
+    $bcrypt = new Bcrypt(BCRYPT_ITER);
     $errors = array();
     // TODO: get user from Database::select()
     $user = new User($dbresult);
