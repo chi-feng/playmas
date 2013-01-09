@@ -131,7 +131,7 @@ class Database {
       $this->numRows = $result->num_rows;
       $this->fieldCount = $result->field_count;
       if ($this->numRows == 0) {
-        return array();
+        return NULL;
       }
       $array = array();
       while ($row = $result->fetch_assoc()) {
