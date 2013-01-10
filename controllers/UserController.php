@@ -66,6 +66,7 @@ class UserController {
     
     // some default values 
     $userArray['cred'] = 0;
+    $userArray['timezone'] = -5;
     $userArray['created'] = time();
     $userArray['status'] = 1;
     
@@ -88,10 +89,6 @@ class UserController {
     } else {
       $views->showView('registration_form', array('postdata'=>$postdata, 'errors'=>$errors));
     }
-  }
-  
-  private function validateRegistration($postData) {
-    
   }
   
 }
