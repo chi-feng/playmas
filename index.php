@@ -50,7 +50,7 @@ if ($action == 'logout') {
   require_once('controllers/LoginController.php');
   $loginCtrl = new LoginController();
   if ($verb == 'GET') {
-    $loginCtrl->showLoginForm();
+    $loginCtrl->doLogout();
   } else {
     fatal_error('Invalid Request', 'Unknown HTTP verb in logout');
   }
