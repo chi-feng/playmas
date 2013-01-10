@@ -33,63 +33,13 @@ class UserController {
     }
   }
   
-  public function getUserByID($id) {
-    $sanitized = validate($id, 'int');
-    if ($sanitized['valid']) {
-      global $db;    
-      $array = $db->select('users', '*', array(array('id','=',$id)));
-      if (is_array($array)) {
-        $user = new User($array);
-        return $user;
-      } else {
-        return NULL;
-      }
-    } else {
-      return NULL;
-    }
-  }
-  
-  public function getUserByUsername($username) {
-    $sanitized = validate($username, 'string');
-    if ($sanitized['valid']) {
-      global $db;    
-      $array = $db->select('users', '*', array(array('username','=',$username)));
-      if (is_array($array)) {
-        $user = new User($array);
-        return $user;
-      } else {
-        return NULL;
-      }
-    } else {
-      return NULL;
-    } 
-  }
-  
-  public function getUserByEmail($email) {
-    $sanitized = validate($email, 'email');
-    if ($sanitized['valid']) {
-      global $db;    
-      $array = $db->select('users', '*', array(array('email','=',$email)));      
-      if (is_array($array)) {
-        $user = new User($array);
-        return $user;
-      } else {
-        return NULL;
-      }
-    } else {
-      return NULL;
-    }
-  }
-  
   public function registerUser($postdata) {
-    // TODO: if valid, put into database and redirect to 
-    //       inbox otherwise, display registration form 
-    //       and show errors
-    // TODO: Check if user specified is unique
-    global $views;
-    $views->showView('test');
     
+    global $views, $db;
+    
+    // populate userArray with sanitized postdata
     $userArray = array();
+    // keep track of errors on the way 
     $errors = array();
     
     $sanitized = validate($postdata['username'], 'alphanumeric', array('minlen'=>3, 'maxlen'=>30));
@@ -114,32 +64,30 @@ class UserController {
       $userArray['passwordhash'] = $bcrypt->hash($postdata['password']);
     }
     
+    // some default values 
     $userArray['cred'] = 0;
     $userArray['created'] = time();
     $userArray['status'] = 1;
     
-    $views->showView('var_dump', array('var'=>$userArray));
+    // check if user already exists (either username or email)
+    $filters = array(array('username', '=', $userArray['username']));
+    if ($db->select('users','count', $filters) > 0) {
+      $errors[] = 'Username already taken.';
+    }
+    $filters = array(array('email', '=', $userArray['email']));
+    if ($db->select('users','count', $filters) > 0) {
+      $errors[] = 'User with specified email already exists.';
+    }
     
     if (count($errors) == 0) {
-      require_once('models/User.php');
       $user = new User($userArray);
-      $id = $this->insertUser($user);
+      $id = $user->save();
       // TODO: actually redirect or say something more useful
       $message = "Inserted user, id is '$id'";
       $views->showView('var_dump', array('var'=>$message));
     } else {
       $views->showView('registration_form', array('postdata'=>$postdata, 'errors'=>$errors));
     }
-  }
-  
-  public function insertUser(&$user) {
-    // TODO: check if user exists and do error handling here. 
-    // NOTE: the Database::insert will only give fatal errors.
-    $fields = $user->getInsertFields();
-    global $db;
-    $id = $db->insert('users', $fields);
-    $user->setID($id);
-    return $id;
   }
   
   private function validateRegistration($postData) {
