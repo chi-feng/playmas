@@ -18,7 +18,9 @@
       <div id="header-util">
         <span id="greet-username">
           <?php
-            echo 'Hello Anonymous User';
+            $username = (isset($_SESSION['username'])) ?
+              htmlspecialchars($_SESSION['username']) : 'Anonymous User';
+            echo "Hello {$username}!";
           ?>
         </span>
         <?php
