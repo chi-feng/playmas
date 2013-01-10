@@ -28,8 +28,8 @@ class Model {
   }
   
   public function get($fieldName) {
-    if (isset($this->fields[$fieldname])) {
-      return $this->fields[$fieldname]['value']; 
+    if (isset($this->fields[$fieldName])) {
+      return $this->fields[$fieldName]['value']; 
     } else {
       fatal_error('Model::get()', "Tried to get nonexistent field '$fieldName'");
     }
@@ -51,13 +51,13 @@ class Model {
       if ($sanitized['valid']) {
         // select user from database 
         global $db;    
-        $array = $db->select($this->table, '*', array($field,'=',$value));
+        $array = $db->select($this->table, '*', array(array($field,'=',$value)));
         // if we didn't get an array back, return empty array
         if (!is_array($array)) {
           $array = array(); 
         } else {
           // otherwise return result from database query
-          return $array;
+          return $array[0];
         }
       } else {
         fatal_error('Model::getArrayFromDatabase()', "Bad values for $field=$value");
