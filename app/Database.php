@@ -33,35 +33,11 @@ class Database {
     if (!$this->isConnected()) {
       fatal_error('Database Error', 'Trying to call insert() on uninitialized mysqli object.');
     }
-    
-    $names = array();
-    $values = array();
-    
-    foreach($fields as $f) {
-      $names[] = $f['name'];
-      switch($f['type']) {
-        case 'string':
-          $value = $f['value'];
-          break;
-        case 'int':
-          if (is_numeric($f['value'])) {
-            $value = intval($f['value']);
-          } else {
-            fatal_error('Database Error', "In insert(), Field '{$f['name']}' not of type Integer.");
-          }
-          break;
-        case 'double':
-          if (is_numeric($f['value'])) {
-            $value = floatval($f['value']);
-          } else {
-            fatal_error('Database Error', "In insert(), Field '{$f['name']}' not of type Double.");
-          }
-          break;
-        default:
-          fatal_error('Database Error', "In insert(), Field '{$f['name']}' has unknown type '{$field['type']}'.");
-      }
-      $values[] = $this->mysqli->real_escape_string($value);
-    }
+
+    $sanitized = $this->sanitizeFields($fields, array('split'=>'true'));
+
+    $names = $sanitized['names'];
+    $values = $sanitized['values'];
     
     $fields = '(`'.implode('`,`', $names).'`)';
     $values = '(\''.implode('\',\'', $values).'\')';
@@ -76,16 +52,91 @@ class Database {
     
   }
   
+  private function sanitizeFields($fields, $options=array()) {
+        
+    $names = array();
+    $values = array();
+    $sanitized = array();
+    
+    foreach($fields as $name=>$f) {
+      $names[] = $name;
+      switch($f['type']) {
+        case 'string':
+          $value = $f['value'];
+          break;
+        case 'int':
+          if (is_numeric($f['value'])) {
+            $value = intval($f['value']);
+          } else {
+            fatal_error('Database Error', "In sanitizeFields(), Field '{$name}' not of type Integer.");
+          }
+          break;
+        case 'double':
+          if (is_numeric($f['value'])) {
+            $value = floatval($f['value']);
+          } else {
+            fatal_error('Database Error', "In sanitizeFields(), Field '{$name}' not of type Double.");
+          }
+          break;
+        default:
+          fatal_error('Database Error', "In sanitizeFields(), Field '{$name}' has unknown type '{$f['type']}'.");
+      }
+      $escaped = $this->mysqli->real_escape_string($value);
+      $values[] = $escaped;
+      $sanitized[$f['name']] = $escaped;
+    }
+    
+    if (isset($options['split'])) {
+      return array('names' => $names, 'values' => $values);
+    } else {
+      return $sanitized;
+    }
+
+  }
+  
+  public function update($table, $fields, $id) {
+    
+    if (!$this->isConnected()) {
+      fatal_error('Database Error', 'Trying to call update() on uninitialized mysqli object.');
+    }
+
+    // TODO: check that $fields are valid $fields
+    // TODO: check that $id is valid $id
+
+    $sanitized = $this->sanitizeFields($fields);
+
+    $setList = array();
+
+    foreach ($sanitized as $name => $value) {
+      $setList[] = sprintf("`%s`='%s'", $name, $value);
+    }
+    
+    if (count($setList) > 1) {
+      $setList = implode(',', $setList);
+    }
+    
+    $sql = "UPDATE $table SET $setList WHERE `id`='$id' LIMIT 1;";
+
+    if($result = $this->mysqli->query($sql)) {
+      return $this->mysqli->insert_id;
+    } else {
+      fatal_error('Database Error', '<code>'.$sql.'</code><br />'.$this->mysqli->error);
+    }
+    
+    return $this->mysqli->affected_rows;
+    
+  }
+  
   private function flatten($filters) {
     $clauses = array();
-    foreach($filters as $filter) {
+    foreach($filters as $f) {
       $name = $f[0];
       $operator = $f[1]; 
-      $value = $this->con->real_escape_string($f[2]);
+      $value = $this->mysqli->real_escape_string($f[2]);
       $clauses[] = "`$name` $operator '$value'";
     }
     if (count(clauses) > 1) {
-      return implode(' AND ', $clauses);
+      return implode(' OR ', $clauses);
     } else if (count(clauses) == 1) {
       return $clauses[0];
     } else {
@@ -94,6 +145,10 @@ class Database {
   }
   
   public function select($table, $fields, $filters, $limit=NULL) {
+    
+    if (!$this->isConnected()) {
+      fatal_error('Database Error', 'Trying to call select() on uninitialized mysqli object.');
+    }
     
     $count = ($fields == 'count' || $fields == 'COUNT(*)');
         
@@ -114,7 +169,7 @@ class Database {
       $fields = 'COUNT(*) as `count`';
     }
 
-    $sql = "SELECT $fields FROM $table WHERE $filters ";
+    $sql = "SELECT $fields FROM $table WHERE $clauses ";
 
     if (!is_null($limit)) {
       if (count($limit) != 2) {
