@@ -80,7 +80,7 @@ class UserController {
     }
     
     if (count($errors) == 0) {
-      $user = new User($userArray);
+      $user = new User($userArray, 'new');
       $id = $user->save();
       // TODO: actually redirect or say something more useful
       $message = "Inserted user, id is '$id'";
