@@ -15,7 +15,8 @@ class User extends Model {
       'passwordHash' => array('type' => 'string'), 
       'cred' => array('type' => 'int'), 
       'created' => array('type' => 'int'), 
-      'status' => array('type' => 'int')
+      'status' => array('type' => 'int'),
+      'timezone' => array('type' => 'int')
     );
     
     $this->populate($array, $option);
