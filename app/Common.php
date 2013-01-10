@@ -27,6 +27,11 @@ function success($message) {
   echo '</div>';
 }
 
+function debug($var) {
+  global $views;
+  $views->showView('var_dump', array('var' => $var));
+}
+
 function validate($value, $type, $options=NULL) {
   $value = trim($value);
   switch ($type) {
