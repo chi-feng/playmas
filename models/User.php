@@ -12,7 +12,7 @@ class User extends Model {
       'id' => array('type' => 'int', 'unique'=>true), 
       'username' => array('type' => 'string', 'unique'=>true), 
       'email' => array('type' => 'string', 'unique'=>true), 
-      'passwordhash' => array('type' => 'string'), 
+      'passwordHash' => array('type' => 'string'), 
       'cred' => array('type' => 'int'), 
       'created' => array('type' => 'int'), 
       'status' => array('type' => 'int')

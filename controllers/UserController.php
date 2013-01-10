@@ -61,7 +61,7 @@ class UserController {
     } else {
       require_once('app/Bcrypt.php');
       $bcrypt = new Bcrypt(BCRYPT_ITER);
-      $userArray['passwordhash'] = $bcrypt->hash($postdata['password']);
+      $userArray['passwordHash'] = $bcrypt->hash($postdata['password']);
     }
     
     // some default values 
