@@ -50,8 +50,23 @@ class UserController {
     if ($this->userExists('username', $username)) {
       $user = new User(array('username', $username));
       $this->view->showView('public_profile', array('user'=>$user));
+
+  /**
+   * Displays a table of all registered users
+   *
+   * @return void
+   * @author Jeff Liu
+   */
+  public function showUserTable() {
+    $users = $this->db->select('users',array('id','username','email'),'1');
+    $userArray = array();
+    if(!is_null($users)) {
+      foreach($users as $user) {
+        $userArray[] = $user;
+      }
+      $views->showView('users',array('userArray'=>$userArray));
     } else {
-      $this->view->showView('user_not_found');
+      $views->showView('user_not_found');
     }
   }
   
