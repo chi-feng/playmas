@@ -18,9 +18,13 @@
       <div id="header-util">
         <span id="greet-username">
           <?php
-            $username = (isset($_SESSION['username'])) ?
-              htmlspecialchars($_SESSION['username']) : 'Anonymous User';
-            echo "Hello {$username}!";
+          $greeting = '';
+          if (isset($_SESSION['username'])) {
+            $greeting = sprintf('Hello <a href="%s">%s</a>!', 
+              route('users/'.$_SESSION['username']), 
+              htmlspecialchars($_SESSION['display_name']));
+          }
+          echo $greeting;
           ?>
         </span>
         <?php

@@ -2,7 +2,7 @@
 $user = $viewOptions['user'];
 ?>
 <div id="public-profile">
-  <div id="social">
+  <div id="social" class="clearfix">
     <div id="profile-picture">
       <?php
       if ($user->get('has_picture') == 1) {
@@ -13,24 +13,26 @@ $user = $viewOptions['user'];
       ?>
       <img src="<?=$src;?>" width="300px" height="300px" />
     </div>
-    <div id="social-networks">
+    <div id="social-networks" class="clearfix">
       <h3>Connect</h3>
       <ul>
-        <li><a href="http://twitter.com/<?=$user->get('twitter');?>">Twitter</a></li>
-        <li><a href="http://twitter.com/<?=$user->get('twitter');?>">Twitter</a></li>
+        <li><a class="btn" href="http://twitter.com/<?=$user->get('twitter');?>"><i class="icon-twitter"></i> Twitter</a></li>
+        <li><a class="btn" href="http://twitter.com/<?=$user->get('twitter');?>"><i class="icon-facebook"></i> Facebook</a></li>
       </ul>
     </div>
   </div>
-  <div id="profile-info">
+  <div id="profile-info" class="clearfix">
     <div id="profile-name">
       <?php
       if ($_SESSION['username'] == $user->get('username')) {
         printf('<a class="btn" href="%s">%s</a>',
-          route('/user/'.$user->get('username').'/edit'),
+          route('user/'.$user->get('username').'/edit'),
           '<i class="icon-edit"></i> Edit');
       }
       ?>
-      <?=$user->get('display_name');?>
+      <span id="display-name">
+        <?=$user->get('display_name');?>
+      </span>
     </div>
     <div id="profile-description">
       <p><?=$user->get('description');?></p>
@@ -38,10 +40,10 @@ $user = $viewOptions['user'];
     <div id="profile-location">
       <span>
       <?php
-      if ($user->get('city')) {
-        echo $user->get('country');
+      if ($user->get('city') != '') {
+        echo  $user->get('city').', '.$user->get('country');
       } else {
-        echo  $user->get('city'), $user->get('country');
+        echo $user->get('country');
       }
       ?>
       </span>

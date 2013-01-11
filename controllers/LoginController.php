@@ -26,6 +26,7 @@ class LoginController {
       $bcrypt = new Bcrypt(BCRYPT_ITER);;
       if ($bcrypt->verify($postvars['password'], $user->get('password_hash'))) {
         $_SESSION['username'] = $user->get('username');
+        $_SESSION['display_name'] = $user->get('display_name');
         $_SESSION['id'] = $user->get('id');
         header('Location: '.route('home'));
       } else {
