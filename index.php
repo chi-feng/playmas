@@ -3,28 +3,28 @@
 session_start();
 
 require_once('app/Common.php');
-require_once('app/Views.php');
-
+require_once('app/View.php');
 require_once('app/Database.php');
+
 $db = new Database();
 $db->connect('localhost', 'root', 'hicfneg12', 'playmas');
 
-$views = new Views();
+$view = new View();
 
 $action = isset($_GET['a']) ? $_GET['a'] : 'home';
 $verb = $_SERVER['REQUEST_METHOD'];
 
 if ($action == 'home') {
-  $views->showView('home');
+  $view->showView('home');
 }
 
 if ($action == 'test') {
-  $views->showView('test');
+  $view->showView('test');
 }
 
 if ($action == 'user_new') {
   require_once('controllers/UserController.php');
-  $userCtrl = new UserController(); 
+  $userCtrl = new UserController($db, $view); 
   if ($verb == 'GET') {
     $userCtrl->showRegistrationForm(); 
   } elseif ($verb == 'POST') {
@@ -36,7 +36,7 @@ if ($action == 'user_new') {
 
 if ($action == 'login') {
   require_once('controllers/LoginController.php');
-  $loginCtrl = new LoginController();
+  $loginCtrl = new LoginController($db, $view);
   if ($verb == 'GET') {
     $loginCtrl->showLoginForm();
   } elseif ($verb == 'POST') {
@@ -48,7 +48,7 @@ if ($action == 'login') {
 
 if ($action == 'logout') {
   require_once('controllers/LoginController.php');
-  $loginCtrl = new LoginController();
+  $loginCtrl = new LoginController($db, $view);
   if ($verb == 'GET') {
     $loginCtrl->doLogout();
   } else {
@@ -58,7 +58,7 @@ if ($action == 'logout') {
 
 if ($action == 'user_view') {
   require_once('controllers/UserController.php');
-  $userCtrl = new UserController(); 
+  $userCtrl = new UserController($db, $view); 
   if ($verb == 'GET') {
     if (!isset($_GET['username'])) {
       fatal_error('Invalid Request', 'user_view not given id from routes');
@@ -71,7 +71,7 @@ if ($action == 'user_view') {
   }
 }
 
-$views->render('html');
+$view->render('html');
 
 session_write_close();
 

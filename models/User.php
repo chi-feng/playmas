@@ -4,7 +4,9 @@ require_once('models/Model.php');
 
 class User extends Model { 
   
-  public function __construct($array, $option = '') {
+  public function __construct($array, $db, $options=array()) {
+    
+    $this->db = $db;
     
     $this->table = 'users';
     
@@ -25,7 +27,7 @@ class User extends Model {
       'has_picture' => array('type' => 'int')
     );
     
-    $this->populate($array, $option);
+    $this->populate($array, $options);
   
   }
   

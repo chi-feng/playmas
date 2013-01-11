@@ -15,7 +15,10 @@ class Request extends Model{
    $body; 
    $songid; //external song info id
   */
-  public function __construct($array, $option = '')) {
+  public function __construct($array, $db, $options=array())) {
+    
+    $this->db = $db;
+    
     $this->table = 'requests';
     
     $this->fields = array(
@@ -34,7 +37,7 @@ class Request extends Model{
       'body' => array('type' => 'string'), //request msg text
       'song_id' => array('type' => 'int')  //external song info id
     );
-    $this->populate($array, $option);
+    $this->populate($array, $options);
   }
 
 }

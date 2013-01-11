@@ -4,8 +4,9 @@ class Model {
 
   protected $fields; 
   protected $table;
+  protected $db;
   
-  public function __construct($array, $option = '') {
+  public function __construct($array, $db, $options=array()) {
     fatal_error('Model::_construct()', 'Model is abstract class, cannot instantiate.');
   }
   
@@ -17,8 +18,8 @@ class Model {
     return isset($this->fields[$field]) && isset($this->fields[$field]['unique']);
   }
   
-  protected function populate($array, $option) {
-    if ($option == 'new') {
+  protected function populate($array, $options) {
+    if ($options === 'new' || isset($options['new'])) {
       $this->populateFields($array);
     } else {
       if (count($array) != 2) {
@@ -58,8 +59,7 @@ class Model {
       $sanitized = validate($value, $this->fields[$field]['type']);
       if ($sanitized['valid']) {
         // select user from database 
-        global $db;    
-        $array = $db->select($this->table, '*', array(array($field,'=',$value)));
+        $array = $this->db->select($this->table, '*', array(array($field,'=',$value)));
         // if we didn't get an array back, return empty array
         if (!is_array($array)) {
           $array = array(); 
@@ -77,16 +77,15 @@ class Model {
   
   public function save() {
     // if id = 0, we insert, otherwise, we update 
-    global $db;
     if ($this->fields['id']['value'] == 0 ||
         $this->fields['id']['value'] == NULL) {
       // NULL is not integer and Database::insert() will give error
       $this->fields['id']['value'] = 0; 
-      $id = $db->insert('users', $this->fields); 
+      $id = $this->db->insert('users', $this->fields); 
       $this->fields['id']['value'] == $id;
       return $id;
     } else {
-      $affected = $db->update($this->table, $this->fields, $this->fields['id']['value']);
+      $affected = $this->db->update($this->table, $this->fields, $this->fields['id']['value']);
       if ($affected < 1) {
         // TODO: this shouldn't actually be fatal
         fatal_error('Model::save()', 'Database::update() resulted in zero affected rows.');

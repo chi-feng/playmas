@@ -2,8 +2,12 @@
 
 class InboxController { 
   
-  public function __construct() {
-    
+  private $db;
+  private $view;
+  
+  public function __construct($db, $view) {
+    $this->db = $db;
+    $this->views = $view;
   }
 
   public function showInbox() {

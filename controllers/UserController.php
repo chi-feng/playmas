@@ -4,40 +4,37 @@ require_once('models/User.php');
 
 class UserController { 
   
-  public function __construct() {
-    
+  private $db;
+  private $view;
+  
+  public function __construct($db, $view) {
+    $this->db = $db;
+    $this->view = $view;
   }
 
   public function showRegistrationForm() {
-    global $views;
-    $views->showView('registration_form');
+    $this->view->showView('registration_form');
   }
   
   public function showProfilePage($username) {
-    global $db, $views; 
     if ($this->userExists('username', $username)) {
       $user = new User(array('username', $username));
       $this->showPublicProfilePage($user);
     } else {
-      $views->showView('user_not_found');
+      $this->view->showView('user_not_found');
     }
   }
   
   private function showPublicProfilePage($user) {
-    global $views; 
-    $views->showView('public_profile', array('user'=>$user));
+    $this->view->showView('public_profile', array('user'=>$user));
   }
   
   private function userExists($field, $value) {
-    global $db;
     $filters = array(array($field, '=', $value));
-    return $db->select('users', 'count', $filters) > 0;
+    return $this->db->select('users', 'count', $filters) > 0;
   }
   
   public function registerUser($postdata) {
-    
-    global $views, $db;
-    
     // populate userArray with sanitized postdata
     $userArray = array();
     // keep track of errors on the way 
@@ -79,11 +76,11 @@ class UserController {
     
     // check if user already exists (either username or email)
     $filters = array(array('username', '=', $userArray['username']));
-    if ($db->select('users','count', $filters) > 0) {
+    if ($this->db->select('users','count', $filters) > 0) {
       $errors[] = 'Username already taken.';
     }
     $filters = array(array('email', '=', $userArray['email']));
-    if ($db->select('users','count', $filters) > 0) {
+    if ($this->db->select('users','count', $filters) > 0) {
       $errors[] = 'User with specified email already exists.';
     }
     
@@ -92,9 +89,9 @@ class UserController {
       $id = $user->save();
       // TODO: actually redirect or say something more useful
       $message = "Inserted user, id is '$id'";
-      $views->showView('var_dump', array('var'=>$message));
+      $this->view->showView('var_dump', array('var'=>$message));
     } else {
-      $views->showView('registration_form', array('postdata'=>$postdata, 'errors'=>$errors));
+      $this->view->showView('registration_form', array('postdata'=>$postdata, 'errors'=>$errors));
     }
   }
   

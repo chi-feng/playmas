@@ -20,18 +20,6 @@ function fatal_error($errname, $details) {
   exit();
 }
 
-function success($message) {
-  echo '<div class="success">';
-  echo '<p><strong>Success!</strong></p>';
-  echo '<p>' . $message . '</p>';
-  echo '</div>';
-}
-
-function debug($var) {
-  global $views;
-  $views->showView('var_dump', array('var' => $var));
-}
-
 function validate($value, $type, $options=NULL) {
   $value = trim($value);
   switch ($type) {
@@ -72,10 +60,6 @@ function validate($value, $type, $options=NULL) {
 
 function route($route) {
   return SITEROOT.$route;
-}
-
-function href($route, $text) {
-  return sprintf('<a href="%s">%s</a>', SITEROOT.$route, $text);
 }
 
 ?>

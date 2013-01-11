@@ -1,9 +1,13 @@
 <?php
 
 class SMSController {
-
-  public function __construct() {
-
+  
+  private $db;
+  private $view;
+  
+  public function __construct($db, $view) {
+    $this->db = $db;
+    $this->view = $view;
   }
 
   public function receiveSMS($incoming) {

@@ -2,7 +2,7 @@
 
 require_once('views/List.php');
 
-class Views {
+class View {
   
   private $output;
   
