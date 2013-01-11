@@ -18,8 +18,11 @@ class User extends Model {
       'status' => array('type' => 'int'),
       'timezone' => array('type' => 'int'),
       'description' => array('type' => 'string'),
-      'location' => array('type' => 'string'),
-      'twitter' => array('type' => 'string')
+      'city' => array('type' => 'string'),
+      'country' => array('type' => 'string'),
+      'twitter' => array('type' => 'string'),
+      'display_name' => array('type' => 'string'),
+      'has_picture' => array('type' => 'int')
     );
     
     $this->populate($array, $option);

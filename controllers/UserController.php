@@ -69,6 +69,11 @@ class UserController {
     $userArray['timezone'] = -5;
     $userArray['created'] = time();
     $userArray['status'] = 1;
+    $userArray['description'] = 'Describe yourself';
+    $userArray['city'] = 'United States';
+    $userArray['country'] = 'United States';
+    $userArray['twitter'] = '';
+    $userArray['has_picture'] = 0;
     
     // check if user already exists (either username or email)
     $filters = array(array('username', '=', $userArray['username']));
