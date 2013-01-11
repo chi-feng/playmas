@@ -33,6 +33,12 @@ class UserController {
     }
   }
   
+  private function userExists($field, $value) {
+    global $db;
+    $filters = array(array($field, '=', $value));
+    return $db->select('users', 'count', $filters) > 0;
+  }
+  
   public function registerUser($postdata) {
     
     global $views, $db;
