@@ -56,6 +56,18 @@ if ($action == 'logout') {
   }
 }
 
+if ($action == 'user_view') {
+  require_once('controllers/UserController.php');
+  $userCtrl = new UserController(); 
+  if ($verb == 'GET') {
+    $userCtrl->showProfilePage(); 
+  } elseif ($verb == 'POST') {
+    $userCtrl->updateProfile($_POST);
+  } else {
+    fatal_error('Invalid Request', 'Unknown HTTP verb in user_view');
+  }
+}
+
 $views->render('html');
 
 session_write_close();
