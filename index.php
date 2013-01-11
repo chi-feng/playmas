@@ -60,7 +60,10 @@ if ($action == 'user_view') {
   require_once('controllers/UserController.php');
   $userCtrl = new UserController(); 
   if ($verb == 'GET') {
-    $userCtrl->showProfilePage(); 
+    if (!isset($_GET['username'])) {
+      fatal_error('Invalid Request', 'user_view not given id from routes');
+    }
+    $userCtrl->showProfilePage($_GET['username']); 
   } elseif ($verb == 'POST') {
     $userCtrl->updateProfile($_POST);
   } else {
