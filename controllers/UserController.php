@@ -70,9 +70,10 @@ class UserController {
     $userArray['created'] = time();
     $userArray['status'] = 1;
     $userArray['description'] = 'Describe yourself';
-    $userArray['city'] = 'United States';
+    $userArray['city'] = '';
     $userArray['country'] = 'United States';
     $userArray['twitter'] = '';
+    $userArray['display_name'] = $userArray['username'];
     $userArray['has_picture'] = 0;
     
     // check if user already exists (either username or email)
