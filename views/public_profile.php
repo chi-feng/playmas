@@ -23,7 +23,14 @@ $user = $viewOptions['user'];
   </div>
   <div id="profile-info">
     <div id="profile-name">
-      <h2><?=$user->get('display_name');?></h2>
+      <?php
+      if ($_SESSION['username'] == $user->get('username')) {
+        printf('<a class="btn" href="%s">%s</a>',
+          route('/user/'.$user->get('username').'/edit'),
+          '<i class="icon-edit"></i> Edit');
+      }
+      ?>
+      <?=$user->get('display_name');?>
     </div>
     <div id="profile-description">
       <p><?=$user->get('description');?></p>

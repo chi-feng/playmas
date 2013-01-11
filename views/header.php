@@ -35,4 +35,4 @@
     </div>
   </div>
 <div id="content">
-  <h1>Play MAS</h1>
+    <h1><a href="<?=route('home');?>">Play MAS</a></h1>
