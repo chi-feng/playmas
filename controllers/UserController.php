@@ -12,7 +12,21 @@ class UserController {
     global $views;
     $views->showView('registration_form');
   }
-  
+
+  public function showUserTable() {
+    global $views, $db;
+    $users = $db->select('users',array('id','username','email'),'1');
+    $userArray = array();
+    if(!is_null($users)) {
+      foreach($users as $user) {
+        $userArray[] = $user;
+      }
+      $views->showView('users',array('userArray'=>$userArray));
+    } else {
+      $views->showView('user_not_found');
+    }
+  }
+
   public function showPublicProfilePage($id) {
     global $views;
     $user = $this->getUserByID($id); 
