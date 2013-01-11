@@ -16,7 +16,10 @@ class User extends Model {
       'cred' => array('type' => 'int'), 
       'created' => array('type' => 'int'), 
       'status' => array('type' => 'int'),
-      'timezone' => array('type' => 'int')
+      'timezone' => array('type' => 'int'),
+      'description' => array('type' => 'string'),
+      'location' => array('type' => 'string'),
+      'twitter' => array('type' => 'string')
     );
     
     $this->populate($array, $option);
