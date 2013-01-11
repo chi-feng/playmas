@@ -9,6 +9,14 @@ class Model {
     fatal_error('Model::_construct()', 'Model is abstract class, cannot instantiate.');
   }
   
+  public function isField($field) {
+    return isset($this->fields[$field]) ;
+  }
+
+  public function isUniqueField($field) {
+    return isset($this->fields[$field]) && isset($this->fields[$field]['unique']);
+  }
+  
   protected function populate($array, $option) {
     if ($option == 'new') {
       $this->populateFields($array);

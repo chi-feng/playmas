@@ -13,24 +13,25 @@ class UserController {
     $views->showView('registration_form');
   }
   
-  public function showPublicProfilePage($id) {
-    global $views;
-    $user = $this->getUserByID($id); 
-    if (!is_null($user)) {
-      $views->showView('public_profile', array('user'=>$user));
+  public function showProfilePage($username) {
+    global $db, $views; 
+    if ($this->userExists('username', $username)) {
+      $user = new User(array('username', $username));
+      $this->showPublicProfilePage($user);
     } else {
       $views->showView('user_not_found');
     }
   }
   
-  public function showPrivateProfilePage($id) {
-    global $views;
-    $user = $this->getUserByID($id); 
-    if (!is_null($user)) {
-      $views->showView('private_profile', array('user'=>$user));
-    } else {
-      $views->showView('user_not_found');
-    }
+  private function showPublicProfilePage($user) {
+    global $views; 
+    $views->showView('public_profile', array('user'=>$user));
+  }
+  
+  private function userExists($field, $value) {
+    global $db;
+    $filters = array(array($field, '=', $value));
+    return $db->select('users', 'count', $filters) > 0;
   }
   
   public function registerUser($postdata) {
@@ -69,6 +70,12 @@ class UserController {
     $userArray['timezone'] = -5;
     $userArray['created'] = time();
     $userArray['status'] = 1;
+    $userArray['description'] = 'Describe yourself';
+    $userArray['city'] = '';
+    $userArray['country'] = 'United States';
+    $userArray['twitter'] = '';
+    $userArray['display_name'] = $userArray['username'];
+    $userArray['has_picture'] = 0;
     
     // check if user already exists (either username or email)
     $filters = array(array('username', '=', $userArray['username']));
