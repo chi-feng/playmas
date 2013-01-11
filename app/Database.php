@@ -44,7 +44,7 @@ class Database {
 
     $sql = "INSERT INTO $table $fields VALUES $values ;";
 
-    if($result = $this->mysqli->query($sql)) {
+    if ($result = $this->mysqli->query($sql)) {
       return $this->mysqli->insert_id;
     } else {
       fatal_error('Database Error', '<code>'.$sql.'</code><br />'.$this->mysqli->error);
@@ -117,7 +117,7 @@ class Database {
     
     $sql = "UPDATE $table SET $setList WHERE `id`='$id' LIMIT 1;";
 
-    if($result = $this->mysqli->query($sql)) {
+    if ($result = $this->mysqli->query($sql)) {
       return $this->mysqli->insert_id;
     } else {
       fatal_error('Database Error', '<code>'.$sql.'</code><br />'.$this->mysqli->error);
