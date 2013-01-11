@@ -16,7 +16,7 @@ class UserController {
   public function showProfilePage($username) {
     global $db, $views; 
     if ($this->userExists('username', $username)) {
-      $user = new User('username', $username);
+      $user = new User(array('username', $username));
       $this->showPublicProfilePage($user);
     } else {
       $this->showView('user_not_found');
