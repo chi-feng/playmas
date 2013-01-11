@@ -19,7 +19,7 @@ class UserController {
       $user = new User(array('username', $username));
       $this->showPublicProfilePage($user);
     } else {
-      $this->showView('user_not_found');
+      $views->showView('user_not_found');
     }
   }
   
