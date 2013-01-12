@@ -2,12 +2,30 @@
 
 class InboxController { 
   
+  /**
+   * Database handle
+   *
+   * @var Database an initialized Database object
+   */
   private $db;
+  
+  /**
+   * View hand
+   *
+   * @var View an initialized View object
+   */
   private $view;
   
+  /**
+   * Constructor for InboxController
+   *
+   * @param Database $db an initialized Database object
+   * @param View $view an initialized View object
+   * @author Chi Feng
+   */
   public function __construct($db, $view) {
     $this->db = $db;
-    $this->views = $view;
+    $this->view = $view;
   }
 
   public function showInbox() {

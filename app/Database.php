@@ -1,16 +1,53 @@
 <?php
 
+/**
+ * Database class for MySQL databases uing the mysqli php interface
+ *
+ * @package default
+ * @author Chi Feng
+ */
 class Database {
   
+  /**
+   * Local mysqli handle
+   *
+   * @var mysqli
+   */
   private $mysqli;
   
+  /**
+   * Number of columns in most recent returned result from select()
+   *
+   * @var int
+   */
   private $fieldCount;
+  
+  /**
+   * Number of rows in most recent returned result from select()
+   *
+   * @var int
+   */
   private $numRows;
   
+  /**
+   * default constructor, connection string is passed to construct()
+   *
+   * @author Chi Feng
+   */
   public function __construct() {
     $this->mysqli = NULL; 
   }
   
+  /**
+   * Connects to a MySQL database with default mysqli constructor.
+   *
+   * @param string $host Hostname
+   * @param string $username Username
+   * @param string $password Password
+   * @param string $database Database
+   * @return void
+   * @author Chi Feng
+   */
   public function connect($host, $username, $password, $database) {
     $this->mysqli = new mysqli($host, $username, $password, $database);
     if ($this->mysqli->connect_errno) {
@@ -18,16 +55,37 @@ class Database {
     }
   }
   
+  /**
+   * Returns whether the database connection is established
+   *
+   * @return bool whether the database connection is established
+   * @author Chi Feng
+   */
   public function isConnected() {
     return !is_null($this->mysqli); 
   }
   
+  /**
+   * Disconnect from the database server
+   *
+   * @return void
+   * @author Chi Feng
+   */
   public function disconnect() {
     if ($this->isConnected()) {
       $this->mysqli->close();
     }
   }
   
+  /**
+   * Insert a row into a table 
+   *
+   * @param string $table Name of database table
+   * @param array $fields Array of field metadata and values, 
+   *                      $fields['name'] = array('type'=>'int', 'value'=>'foo')
+   * @return int insert_id
+   * @author Chi Feng
+   */
   public function insert($table, $fields) {
     
     if (!$this->isConnected()) {
@@ -52,6 +110,15 @@ class Database {
     
   }
   
+  /**
+   * Sanitizes the $fields array passed to many database functions.
+   *
+   * @param array $fields Array of field metadata and values, 
+   *                      $fields['name'] = array('type'=>'int', 'value'=>'foo')
+   * @param array $options 
+   * @return void
+   * @author Chi Feng
+   */
   private function sanitizeFields($fields, $options=array()) {
         
     $names = array();
@@ -94,6 +161,16 @@ class Database {
 
   }
   
+  /**
+   * Create and execute UPDATE query on the database
+   *
+   * @param string $table Name of database table
+   * @param array $fields Array of field metadata and values, 
+   *                      $fields['name'] = array('type'=>'int', 'value'=>'foo')
+   * @param string $id Unique 'id' value to select database entry 
+   * @return int affected_rows
+   * @author Chi Feng
+   */
   public function update($table, $fields, $id) {
     
     if (!$this->isConnected()) {
@@ -127,6 +204,13 @@ class Database {
     
   }
   
+  /**
+   * Flatten a list of WHERE filters into a single clause, joined with OR
+   *
+   * @param array $filters An array of filters, array(array('id','=','1'))
+   * @return string a single WHERE clause
+   * @author Chi Feng
+   */
   private function flatten($filters) {
     $clauses = array();
     foreach($filters as $f) {
@@ -144,6 +228,17 @@ class Database {
     }
   }
   
+  /**
+   * Create and execute SELECT query on database
+   *
+   * @param string $table Name of database table
+   * @param array $fields List of fields to select, can also use 'count' or '*'
+   * @param array $filters An array of filters, array(array('id','=','1'))
+   * @param array $limit An array(min, max) that gives LIMIT min, max 
+   * @return mixed Integer count if $fields == 'count' otherwise an
+   *               associative array each entry a row, also an assoc. array. 
+   * @author Chi Feng
+   */
   public function select($table, $fields, $filters, $limit=NULL) {
     
     if (!$this->isConnected()) {
@@ -197,10 +292,22 @@ class Database {
     }
   }
 
+  /**
+   * Accessor for field count
+   *
+   * @return int Number of columns returned from most recent SELECT query
+   * @author Chi Feng
+   */
   public function getFieldCount() {
     return $this->fieldCount;
   }
   
+  /**
+   * Accessor for row count
+   *
+   * @return int Number of rows returned from most recent SELECT query
+   * @author Chi Feng
+   */
   public function getRowCount() {
     return $this->numRows;
   }

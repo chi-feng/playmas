@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Server time zone, to satisfy PHP warning and to get consistent timestamps 
+ */
 define('TIMEZONE', 'America/New_York');
 date_default_timezone_set(TIMEZONE);
 
@@ -12,7 +15,16 @@ else {
 
 define('BCRYPT_ITER', 10);
 
+/**
+ * Display fatal error message and die
+ *
+ * @param string $errname name/category of the error
+ * @param string $details details of the error
+ * @return void
+ * @author Chi Feng
+ */
 function fatal_error($errname, $details) {
+  echo '<link href="'.route('css/screen.css').'" rel="stylesheet" type="text/css" media="screen" />';
   echo '<div class="error">';
   echo '<p><strong>' . $errname .'</strong></p>';
   echo '<p>' . $details . '</p>';
@@ -20,6 +32,15 @@ function fatal_error($errname, $details) {
   exit();
 }
 
+/**
+ * Validate and Sanitize 
+ *
+ * @param string $value value to be sanitized
+ * @param string $type type of validation to perform, e.g. alphanumeric, int
+ * @param array $options additional options, e.g. min_length, max_length
+ * @return array 'valid' => boolean, 'value' => sanitized value
+ * @author Chi Feng
+ */
 function validate($value, $type, $options=NULL) {
   $value = trim($value);
   switch ($type) {
@@ -58,6 +79,13 @@ function validate($value, $type, $options=NULL) {
   return false;
 }
 
+/**
+ * Returns the full url for a route
+ *
+ * @param string $route local relative route, e.g. inbox/new
+ * @return string full url for route http://play.measong.com/inbox/new
+ * @author Chi Feng
+ */
 function route($route) {
   return SITEROOT.$route;
 }

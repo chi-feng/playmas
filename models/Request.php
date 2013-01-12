@@ -2,6 +2,12 @@
 
 require_once('models/Model.php');
 
+/**
+ * undocumented class
+ *
+ * @package default
+ * @author Jeff Liu
+ */
 class Request extends Model{
   /*
    $id; //unique message id
@@ -15,7 +21,16 @@ class Request extends Model{
    $body; 
    $songid; //external song info id
   */
-  public function __construct($array, $db, $options=array())) {
+  
+  /**
+   * undocumented function
+   *
+   * @param string $array 
+   * @param string $db 
+   * @param string $options 
+   * @author Jeff Liu
+   */
+  public function __construct($array, $db, $options=array()) {
     
     $this->db = $db;
     

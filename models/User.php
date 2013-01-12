@@ -2,6 +2,12 @@
 
 require_once('models/Model.php');
 
+/**
+ * User Model
+ *
+ * @package default
+ * @author Chi Feng
+ */
 class User extends Model { 
   
   public function __construct($array, $db, $options=array()) {
