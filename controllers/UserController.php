@@ -38,6 +38,7 @@ class UserController {
   public function showRegistrationForm() {
     $this->view->showView('registration_form');
   }
+<<<<<<< HEAD
   
   /**
    * Displays a user's profile page
@@ -65,6 +66,17 @@ class UserController {
         $userArray[] = $user;
       }
       $views->showView('users',array('userArray'=>$userArray));
+    } else {
+      $views->showView('user_not_found');
+    }
+  }
+
+  public function showPublicProfilePage($id) {
+    global $views;
+    $user = $this->getUserByID($id); 
+    if (!is_null($user)) {
+      $views->showView('public_profile', array('user'=>$user));
+>>>>>>> 1b15913fce7455ce034a469cfe15c37f55f273d1
     } else {
       $views->showView('user_not_found');
     }
