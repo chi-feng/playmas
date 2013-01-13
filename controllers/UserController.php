@@ -54,6 +54,19 @@ class UserController {
       $this->view->showView('user_not_found');
     }
   }
+
+  public function showUserTable() {
+    $users = $this->db->select('users',array('id','username','email'),'1');
+    $userArray = array();
+    if(!is_null($users)) {
+      foreach($users as $user) {
+        $userArray[] = $user;
+      }
+      $this->view->showView('users',array('userArray'=>$userArray));
+    } else {
+      $this->view->showView('user_not_found');
+    }
+  }
   
   /**
    * Checks if a user exists in the database
