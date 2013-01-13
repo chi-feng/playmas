@@ -43,7 +43,7 @@ class LoginController {
     if ($this->db->select('users','count', $filters) == 0) {
       $errors[] = 'Username does not exist.';
     } else {
-      $user = new User(array('username', $postvars['username'])); 
+      $user = new User(array('username', $postvars['username']), $this->db); 
       $bcrypt = new Bcrypt(BCRYPT_ITER);;
       if ($bcrypt->verify($postvars['password'], $user->get('password_hash'))) {
         $_SESSION['username'] = $user->get('username');

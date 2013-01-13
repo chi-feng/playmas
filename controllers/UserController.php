@@ -48,7 +48,7 @@ class UserController {
    */
   public function showProfilePage($username) {
     if ($this->userExists('username', $username)) {
-      $user = new User(array('username', $username));
+      $user = new User(array('username', $username), $this->db);
       $this->view->showView('public_profile', array('user'=>$user));
     } else {
       $this->view->showView('user_not_found');
