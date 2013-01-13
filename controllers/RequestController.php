@@ -10,7 +10,7 @@ class RequestController {
   private $db;
   
   /**
-   * View hand
+   * View handle
    *
    * @var View an initialized View object
    */
@@ -28,6 +28,18 @@ class RequestController {
     $this->view = $view;
   }
 
+  /**
+   * Generates a new request from POST request
+   * Gives errors if target user doesn't exist
+   *
+   * @param array $postdata the $_POST array
+   * @return void
+   * @author Jeff Liu
+   */
+  public function newRequest($postdata) {
+    $requestArray = array(); //holds all the information to make new request
+    $errors = array(); //holds any errors that may arise
+  }
 
 }
 
