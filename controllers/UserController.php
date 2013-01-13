@@ -50,26 +50,17 @@ class UserController {
     if ($this->userExists('username', $username)) {
       $user = new User(array('username', $username), $this->db);
       $this->view->showView('public_profile', array('user'=>$user));
-
+    } else {
+      $this->view->showView('user_not_found');
+    }
+  }
+  
   /**
    * Displays a table of all registered users
    *
    * @return void
    * @author Jeff Liu
    */
-  public function showUserTable() {
-    $users = $this->db->select('users',array('id','username','email'),'1');
-    $userArray = array();
-    if(!is_null($users)) {
-      foreach($users as $user) {
-        $userArray[] = $user;
-      }
-      $views->showView('users',array('userArray'=>$userArray));
-    } else {
-      $views->showView('user_not_found');
-    }
-  }
-
   public function showUserTable() {
     $users = $this->db->select('users',array('id','username','email'),'1');
     $userArray = array();
@@ -155,7 +146,7 @@ class UserController {
     }
     
     if (count($errors) == 0) {
-      $user = new User($userArray, 'new');
+      $user = new User($userArray, $this->db, 'new');
       $id = $user->save();
       // TODO: actually redirect or say something more useful
       $message = "Inserted user, id is '$id'";
