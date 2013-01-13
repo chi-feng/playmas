@@ -8,6 +8,7 @@ $allowedViews = array(
   'public_profile',
   'private_profile',
   'test',
+  'user_not_found',
   'var_dump' // for debugging stuff
 );
 

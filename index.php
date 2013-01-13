@@ -34,9 +34,9 @@ if ($action == 'user_new') {
   }
 }
 
-if ($action == 'users') {
+if ($action == 'user_list') {
   require_once('controllers/UserController.php');
-  $userCtrl = new UserController();
+  $userCtrl = new UserController($db, $view);
   if($verb == 'GET') {
     $userCtrl->showUserTable();
   } else {
