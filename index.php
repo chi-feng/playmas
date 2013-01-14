@@ -34,6 +34,17 @@ if ($action == 'user_new') {
   }
 }
 
+if ($action == 'user_list') {
+  require_once('controllers/UserController.php');
+  $userCtrl = new UserController($db, $view);
+  if($verb == 'GET') {
+    $userCtrl->showUserTable();
+  } else {
+    fatal_error('Invalid REquest','Unknown HTTP verb in users');
+  }
+
+}
+
 if ($action == 'login') {
   require_once('controllers/LoginController.php');
   $loginCtrl = new LoginController($db, $view);

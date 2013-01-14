@@ -248,7 +248,7 @@ class Database {
     $count = ($fields == 'count' || $fields == 'COUNT(*)');
         
     if (is_array($fields)) {
-      $fields = '(`'.implode('`,`', $fields).'`)';
+      $fields = '`'.implode('`,`', $fields).'`';
     }
     
     $clauses = 'FALSE'; // returns nothing
@@ -272,7 +272,7 @@ class Database {
       }
       $sql .= "LIMIT {$limit[0]}, {$limit[1]} ";
     }
-
+    
     if ($result = $this->mysqli->query($sql)) {
       if ($count) {
         $row = $result->fetch_assoc();
