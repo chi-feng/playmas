@@ -9,3 +9,6 @@ RewriteRule ^users/new/?$ index.php?a=user_new [NC,L]
 RewriteRule ^users/([a-zA-Z0-9_-]{3,16}+)/?$ index.php?a=user_view&username=$1 [NC,L] 
 RewriteRule ^users/?$ index.php?a=user_list [NC,L] 
 RewriteRule ^users/page/([0-9]+)/?$ index.php?a=user_list&page=$1 [NC,L] 
+
+RewriteRule ^autocomplete/location?$ index.php?a=autocomplete_location [NC,L]
+RewriteRule ^autocomplete/location/([a-zA-Z0-9_-]{3,16}+)/?$ index.php?a=autocomplete_location&query=$1 [NC,L]

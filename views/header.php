@@ -4,12 +4,14 @@
   <link href="<?=route('css/screen.css');?>" rel="stylesheet" type="text/css" media="screen" />
   <link rel="icon" href="<?=route('favicon.png');?>" sizes="16x16" type="image/png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="<?=route('js/jquery.autocomplete.min.js');?>"></script>
+  <script src="<?=route('js/jquery.ui.autocomplete.js');?>"></script>
 </head>
 <body>
-  <div id="header">
-    <div id="header-bar">
+  <div id="header" class="clearfix">
+    <div id="header-bar" class="clearfix">
       <div id="header-links">
-        <ul>
+        <ul class="clearfix">
           <li><a href="<?=route('faq');?>">FAQ</a></li>
           <li><a href="<?=route('aww');?>">AWW</a></li>
           <li><a href="<?=route('yiss');?>">YISS</a></li>
