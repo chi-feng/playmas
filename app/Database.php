@@ -312,6 +312,47 @@ class Database {
     return $this->numRows;
   }
 
+  /**
+   * Get user from database.
+   *
+   * @param string $field 
+   * @param string $value 
+   * @return User
+   * @author Chi Feng
+   */
+  public function getUser($field, $value, $options = NULL) {
+    switch ($field) {
+      case 'id':
+      break;
+      case 'username':
+      break;
+      case 'email':
+      break;
+      default:
+      throw new Exception("Invalid field '$field' in getUser.");
+      break;
+    }
+  }
+  
+  public function getLocationJSON($value) {
+    $sql = "SELECT city as location 
+            FROM locations WHERE city LIKE '$value%' ORDER BY population DESC LIMIT 10";
+    // $array = array('query'=>$value, 'suggestions'=>array());
+    $array = array();
+    if ($result = $this->mysqli->query($sql)) {
+      while ($row = $result->fetch_assoc()) {
+        //$array['suggestions'][] = array('value'=>$row['location'], 'data'=>$row['location']);
+        $array[] = $row['location'];
+      }
+      $result->close(); 
+    }
+    $json = json_encode($array);
+    if (!$json) {
+      throw new Exception('Could not encode location autocomplete as JSON');
+    }
+    return $json;
+  }
+
 }
 
 ?>

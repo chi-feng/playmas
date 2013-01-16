@@ -82,6 +82,11 @@ if ($action == 'user_view') {
   }
 }
 
+if ($action == 'autocomplete_location') {
+  echo $db->getLocationJSON($_REQUEST['query']);
+  exit();
+}
+
 $view->render('html');
 
 session_write_close();
