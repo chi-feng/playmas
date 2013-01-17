@@ -1,3 +1,11 @@
+<?php
+  
+$logged_in = isset($_SESSION['username']);
+$username = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
+$display_name = $_SESSION['display_name'];
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
@@ -8,37 +16,33 @@
   <script src="<?=route('js/jquery.ui.autocomplete.js');?>"></script>
 </head>
 <body>
-  <div id="header" class="clearfix">
-    <div id="header-bar" class="clearfix">
-      <div id="header-links">
-        <ul class="clearfix">
-          <li><a href="<?=route('faq');?>">FAQ</a></li>
-          <li><a href="<?=route('aww');?>">AWW</a></li>
-          <li><a href="<?=route('yiss');?>">YISS</a></li>
-        </ul>
-      </div>
-      <div id="header-util">
-        <span id="greet-username">
-          <?php
-          $greeting = '';
-          if (isset($_SESSION['username'])) {
-            $greeting = sprintf('Hello <a href="%s">%s</a>!', 
-              route('users/'.$_SESSION['username']), 
-              htmlspecialchars($_SESSION['display_name']));
-          }
-          echo $greeting;
-          ?>
-        </span>
-        <?php
-        if (isset($_SESSION['username'])) {
-          echo '<a id="logout-button" class="util-button" href="'.route('logout').'">Logout</a>';
-        } else {
-          echo '<a id="login-button" class="util-button" href="'.route('login').'">Login</a>';
-          echo '<a id="register-button" class="util-button" href="'.route('users/new').'">Register</a>';
-        }
-        ?>
-      </div>
-    </div>
+<div id="wrap">
+<div id="header" class="clearfix">
+  <div id="login">
+  <?php if ($logged_in) { ?>
+    <a href="<?=route('logout');?>">Log Out</a>
+  <?php } else { ?>
+    <a href="<?=route('login');?>">Log In</a>
+  <?php } ?>
   </div>
-<div id="content">
-    <h1><a href="<?=route('home');?>">Play MAS</a></h1>
+  <div class="header-bar clearfix">
+  <h1 id="logo" class="clearfix">
+    <a href="<?=route('home');?>">PlayMAS</a>
+  </h1>
+  <div id="nav">
+    <ul id="menu">
+    <?php if ($logged_in) { ?>
+      <li><a href="<?=route('dashboard');?>">Dashboard</a></li>
+      <li><a href="<?=route('inbox');?>">Inbox</a></li>
+      <li><a href="<?=route('support');?>">Support</a></li>
+      <li><a href="<?=route('account');?>">Account</a></li>
+    <?php } else { ?>
+      <li><a href="<?=route('pricing');?>">Lorem</a></li>
+      <li><a href="<?=route('features');?>">Ipsum</a></li>
+      <li><a href="<?=route('support');?>">Dolor</a></li>
+      <li><a href="<?=route('blog');?>">Sit Amet</a></li>
+    <?php } ?>
+    </ul>
+  </div>
+  </div>
+</div>

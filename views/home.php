@@ -1,39 +1,19 @@
-<a class="homepage-button" href="<?=route('test');?>">Test</a>
-<a class="homepage-button" href="<?=route('users/new');?>">Register</a>
-<a class="homepage-button" href="<?=route('login');?>">Login</a>
+
+<div id="homepage" class="clearfix">
+  <div class="blurb-wide">
+    <h2>Easy DJ Requests <br />
+      Over the Interwebs</h2>
+    <h4>Handling requests suck. <br />
+      Suck less.</h4>
+    <p>PlayMAS helps you Lorem ipsum dolor sit amet, 
+      consectetur adipiscing elit. Cras tristique, 
+      mi quis rutrum pellentesque, arcu velit porta justo, 
+      eget commodo risus elit et justo. </p> 
+    <div class="registration">
+      <a class="button registration-button" href="<?=route('users/new');?>">Sign Up Free</a>
+    </div>
+  </div>
+</div>
 
 
-<input type="text" name="city" id="autocomplete" />
 
-
-
-<script>
-
-$(function() {
-	$("#autocomplete").autocomplete({
-    source: function(req, add) {
-      console.log(req);
-      var suggestions = [];
-      $.ajax({
-        type: "POST",
-        url: "<?=route('autocomplete/location');?>",
-        data: { query: req.term },
-        success: function(data) {
-          suggestions = data;
-      console.log(suggestions);
-          add(suggestions);
-        },
-        dataType: "json"
-      });
-    }
-  });
-});
-/*
-$('#autocomplete').autocomplete({
-    serviceUrl: "<?=route('autocomplete/location');?>",
-    onSelect: function (suggestion) {
-        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-    }
-});
-*/
-</script>

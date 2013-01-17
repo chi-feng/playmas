@@ -1,136 +1,67 @@
-@import url("font-awesome.min.css");
-@import url("fonts.css"); /* proxima-nova */
+@charset "UTF-8";
+@import url('fonts.css');
+@import url('clean.css');
+@import url('forms.css');
 
-html, body { 
-  height:100%; 
-} 
+/* LAYOUT */
+#wrap { width: 1050px; margin: 0 auto; }
+#header { }
+#login { float: right; height: 50px; line-height: 50px; }
+.header-bar { margin-top: 50px; }
+#menu { float:right; }
+#nav { float: left; width: 760px; }
+#nav ul { width: 100%; }
+#nav li { float:left; width: 25%; text-align: center; }
+#nav li a { display: block; height: 55px; line-height: 55px; }
+h1#logo { float: left; margin-right: 20px; text-indent: -9999px; }
+h1#logo a { display: block; float: left; height: 56px; width: 270px; }
+#content { padding: 25px; margin-top: 40px; min-height: 400px;}
 
-*, *:before, *:after {
-  margin:0; 
-  padding:0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+/* FONT ASSIGNMENTS */
+#header { font-family: 'BebasNeueRegular'; }
+
+/* COLORS AND EVERYTHING ELSE */
+body {
+  background: url('images/office.png') fixed;
+  border-top: 5px solid #fcb00d;
+  border-bottom: 5px solid #29e3c7;
 }
 
-body * {
-  margin: 5px;
-  padding: 5px;
-  background: rgba(0,0,0,0.1);
-  box-shadow: 0px 4px 10px -2px rgba(0,0,0,0.3);
-  border: 0;
-  display: inline-block;
-  font-family: "Helvetica Neue";
-  font-size: 18px;
-  line-height: 24px;
+#login a { font-size: 24px; color: #ccc; }
+#login a:hover { font-size: 24px; color: #fff; }
+
+#nav { border-radius:4px; border: 1px solid #444; box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);}
+#nav li { border-right: 1px solid #444; }
+#nav li:last-child { border-right: 0; }
+#nav li a { color: #aaa; background: rgba(127, 127, 127, 0.2); font-size: 32px; }
+#nav li a:hover { color: #eee; background: rgba(127, 127, 127, 0.5); }
+
+.button {
+  display:inline-block;
+  border: 1px solid #e82;
+  background: #d71;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0px -1px 2px rgba(0,0,0,0.5);
+  box-shadow: inset 0px 0px 25px -5px rgba(255,198,0,0.6);
+  border-radius:4px;
 }
 
-script {
-  display: none;
-}
-
-body *:hover {
-  
-}
-
-table { 
-  border-collapse:collapse; 
-}
-
-table, th, td { 
-
-}
-
-table, th, td {
-
-}
-
-.disabled { pointer-events: none; opacity: 0.5; }
-.hide { display: none; }
-.show { display: block; }
-.float-left { float: left; }
-.float-right { float: right; }
-
-.clearfix:before, .clearfix:after { content: " "; display: table; }
-.clearfix:after { clear: both; }
-
-a {
-  text-decoration: none;
-  position: relative;
-  /*
-  padding: .5em;
-  margin: -.5em;
-  */
-}
-
-a.btn {
-  display: inline-block;
-}
-
-
-body { 
-  
-}
+h1#logo a { background-image: url('images/logo.png'); background-size: cover; }
 
 #content { 
-
+  color:#ccc; 
+  background: #333; 
+  border: 1px solid #444; 
+  border-radius:4px; 
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
 }
 
-#header {
-  width: 100%;
-}
-
-#header-links {
-}
-
-#header-links li {
-}
-
-#header-links li a {
-}
-
-#header-util {
-}
-
-#header-util #greet-username {
-}
+#homepage { margin-top: 40px; }
+#homepage .blurb-wide { float:left; width: 400px; }
+#homepage h2 { color: #fff; font-size: 36px; margin-bottom: 15px; }
+#homepage h4 { color: #ddd; font-size: 24px; margin-bottom: 15px; }
+#homepage p  { color: #ddd; font-size: 18px; margin-bottom: 20px; }
+#homepage .registration-button { font-size: 22px; padding: 15px; }
 
 
-#header-util #greet-username a {
-
-}
-
-#header-util a.util-button {
-
-}
-#header-util .util-button {
-}
-
-#header-util a.util-button:hover {
-  
-}
-
-/* 10 results are available, use up and down arrow keys to navigate. */
-.ui-helper-hidden-accessible { 
-  display: none;
-}
-
-.ui-autocomplete {
-}
-
-.ui-menu {
-}
-
-.ui-widget {
-  
-}
-
-.ui-widget-content {
-  
-}
-
-.ui-corner-all {
-}
-
-.ui-menu-item {
-}

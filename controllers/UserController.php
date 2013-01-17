@@ -47,8 +47,8 @@ class UserController {
    * @author Chi Feng
    */
   public function showProfilePage($username) {
-    if ($this->userExists('username', $username)) {
-      $user = new User(array('username', $username), $this->db);
+    if ($this->db->exists('users', 'username', $username)) {
+      $user = $this->db->getUser('username', $username);
       $this->view->showView('public_profile', array('user'=>$user));
     } else {
       $this->view->showView('user_not_found');
@@ -72,19 +72,6 @@ class UserController {
     } else {
       $this->view->showView('user_not_found');
     }
-  }
-  
-  /**
-   * Checks if a user exists in the database
-   *
-   * @param string $field the selection criteria, e.g. 'username', or 'id'
-   * @param string $value the value of $field
-   * @return boolean true if user exists, false otherwise
-   * @author Chi Feng
-   */
-  private function userExists($field, $value) {
-    $filters = array(array($field, '=', $value));
-    return $this->db->select('users', 'count', $filters) > 0;
   }
   
   /**

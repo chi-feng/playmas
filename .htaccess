@@ -5,6 +5,14 @@ RewriteRule ^home?$ index.php?a=home [NC,L]
 RewriteRule ^login?$ index.php?a=login [NC,L]
 RewriteRule ^logout?$ index.php?a=logout [NC,L]
 
+RewriteRule ^dashboard?$ index.php?a=dashboard [NC,L]
+RewriteRule ^account?$ index.php?a=account [NC,L]
+
+RewriteRule ^pricing?$ index.php?a=pricing [NC,L]
+RewriteRule ^features?$ index.php?a=features [NC,L]
+RewriteRule ^support?$ index.php?a=support [NC,L]
+RewriteRule ^blog?$ index.php?a=blog [NC,L]
+
 RewriteRule ^users/new/?$ index.php?a=user_new [NC,L] 
 RewriteRule ^users/([a-zA-Z0-9_-]{3,16}+)/?$ index.php?a=user_view&username=$1 [NC,L] 
 RewriteRule ^users/?$ index.php?a=user_list [NC,L] 

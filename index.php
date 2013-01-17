@@ -6,6 +6,12 @@ require_once('app/Common.php');
 require_once('app/View.php');
 require_once('app/Database.php');
 
+require_once('controllers/LoginController.php');
+require_once('controllers/UserController.php');
+
+require_once('models/Model.php');
+require_once('models/User.php');
+
 $db = new Database();
 $db->connect('localhost', 'root', 'hicfneg12', 'playmas');
 
@@ -16,58 +22,57 @@ $verb = $_SERVER['REQUEST_METHOD'];
 
 if ($action == 'home') {
   $view->showView('home');
+  $view->render('html');
 }
 
-if ($action == 'test') {
-  $view->showView('test');
-}
-
-if ($action == 'user_new') {
-  require_once('controllers/UserController.php');
+elseif ($action == 'user_new') {
   $userCtrl = new UserController($db, $view); 
   if ($verb == 'GET') {
     $userCtrl->showRegistrationForm(); 
+    $view->render('html');
   } elseif ($verb == 'POST') {
     $userCtrl->registerUser($_POST);
+    $view->render('json');
   } else {
-    fatal_error('Invalid Request', 'Unknown HTTP verb in user_new');
+    throw new Exception('Invalid HTTP verb in this context.');
   }
 }
 
-if ($action == 'user_list') {
-  require_once('controllers/UserController.php');
+elseif ($action == 'user_list') {
   $userCtrl = new UserController($db, $view);
   if($verb == 'GET') {
     $userCtrl->showUserTable();
+    $view->render('html');
   } else {
-    fatal_error('Invalid REquest','Unknown HTTP verb in users');
+    throw new Exception('Invalid HTTP verb in this context.');
   }
 
 }
 
-if ($action == 'login') {
-  require_once('controllers/LoginController.php');
+elseif ($action == 'login') {
   $loginCtrl = new LoginController($db, $view);
   if ($verb == 'GET') {
     $loginCtrl->showLoginForm();
+    $view->render('html');
   } elseif ($verb == 'POST') {
     $loginCtrl->doLogin($_POST);
+    $view->render('html');
   } else {
-    fatal_error('Invalid Request', 'Unknown HTTP verb in login');
+    throw new Exception('Invalid HTTP verb in this context.');
   }
 }
 
-if ($action == 'logout') {
-  require_once('controllers/LoginController.php');
+elseif ($action == 'logout') {
   $loginCtrl = new LoginController($db, $view);
   if ($verb == 'GET') {
     $loginCtrl->doLogout();
+    $view->render('html');
   } else {
-    fatal_error('Invalid Request', 'Unknown HTTP verb in logout');
+    throw new Exception('Invalid HTTP verb in this context.');
   }
 }
 
-if ($action == 'user_view') {
+elseif ($action == 'user_view') {
   require_once('controllers/UserController.php');
   $userCtrl = new UserController($db, $view); 
   if ($verb == 'GET') {
@@ -75,6 +80,7 @@ if ($action == 'user_view') {
       fatal_error('Invalid Request', 'user_view not given id from routes');
     }
     $userCtrl->showProfilePage($_GET['username']); 
+    $view->render('html');
   } elseif ($verb == 'POST') {
     $userCtrl->updateProfile($_POST);
   } else {
@@ -82,12 +88,24 @@ if ($action == 'user_view') {
   }
 }
 
-if ($action == 'autocomplete_location') {
-  echo $db->getLocationJSON($_REQUEST['query']);
-  exit();
-}
+elseif ($action == 'autocomplete_location') {
+  $json = $db->getLocationJSON($_REQUEST['query']);
+  $view->showView('json', $json);
+  $view->render('json');
+} 
 
-$view->render('html');
+
+elseif ($action == 'dashboard') {
+  // TODO: authenticate here
+  $view->showView('dashboard', $_SESSION['display_name']);
+  $view->render('html');
+} 
+
+else {
+  header("HTTP/1.0 404 Not Found");
+  $view->showView('404');
+  $view->render('html');
+}
 
 session_write_close();
 

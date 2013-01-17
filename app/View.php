@@ -37,7 +37,7 @@ class View {
   public function showView($view, $options=NULL) {
     global $allowedViews;
     if (!in_array($view, $allowedViews)) {
-      fatal_error('View Error', "View '$view' not in allowedViews");
+      throw new Exception("View '$view' not in allowedViews");
     }
 
     global $viewOptions;

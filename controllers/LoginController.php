@@ -31,29 +31,29 @@ class LoginController {
     $this->view = $view;
   }
 
-
   public function showLoginForm() {
     $this->view->showView('login_form');
   }
   
-  public function doLogin($postvars) {
+  public function doLogin() {
+    
     $errors = array();
-    // check if username exists
-    $filters = array(array('username', '=', $postvars['username'])); 
-    if ($this->db->select('users','count', $filters) == 0) {
-      $errors[] = 'Username does not exist.';
-    } else {
-      $user = new User(array('username', $postvars['username']), $this->db); 
-      $bcrypt = new Bcrypt(BCRYPT_ITER);;
-      if ($bcrypt->verify($postvars['password'], $user->get('password_hash'))) {
+    
+    if ($this->db->exists('users', 'username', $_POST['username'])) {
+      $user = $this->db->getUser('username', $_POST['username']);
+      $bcrypt = new Bcrypt(BCRYPT_ITER);
+      if ($bcrypt->verify($_POST['password'], $user->get('password_hash'))) {
         $_SESSION['username'] = $user->get('username');
         $_SESSION['display_name'] = $user->get('display_name');
         $_SESSION['id'] = $user->get('id');
-        header('Location: '.route('home'));
+        header('Location: '.route('dashboard'));
       } else {
         $errors[] = "Username/password mismatch.";
       }
+    } else {
+      $errors[] = 'Username does not exist.';
     }
+    
     $this->view->showView('login_form', array('postdata'=>$postdata, 'errors'=>$errors));
   }
   
