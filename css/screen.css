@@ -47,6 +47,13 @@ body {
   border-radius:4px;
 }
 
+.error-handler {
+  color:#f00;
+  font-weight:bold;
+  font-size: 20px;
+  padding: 10px;
+}
+
 h1#logo a { background-image: url('images/logo.png'); background-size: cover; }
 
 #content { 

@@ -114,23 +114,31 @@ function errorHandler($errno, $errstr, $errfile, $errline) {
     switch ($errno) {
       
     case E_USER_ERROR:
+        echo '<div class="error-handler">';
         echo "<b>ERROR</b> [$errno] $errstr<br />\n";
         echo "  Fatal error on line $errline in file $errfile";
         echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
         echo "Aborting...<br />\n";
+        echo '</div>';
         exit(1);
         break;
 
     case E_USER_WARNING:
+        echo '<div class="error-handler">';
         echo "<b>WARNING</b> [$errno] $errstr<br />\n";
+        echo '</div>';
         break;
 
     case E_USER_NOTICE:
+        echo '<div class="error-handler">';
         echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
+        echo '</div>';
         break;
 
     default:
+        echo '<div class="error-handler">';
         echo "Unknown error type: [$errno] $errstr<br />\n";
+        echo '</div>';
         break;
         
     }
