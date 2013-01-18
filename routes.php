@@ -11,6 +11,7 @@ $routes = array(
   array('login',        'POST', 'Login',   'doLogin'),
   array('logout',       'GET',  'Login',   'doLogout'),
   array('user_list',    'GET',  'User',    'showUsers'),
+  array('user_view',    'GET',  'User',    'showProfilePage')
   array('number_list',  'GET',  'Number',  'showNumbers'),
   array('number_new',   'GET',  'Number',  'showNewNumberForm'),
   array('number_new',   'POST', 'Number',  'addNewNumber'),

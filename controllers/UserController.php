@@ -48,10 +48,11 @@ class UserController {
    * @return void
    * @author Chi Feng
    */
-  public function showProfilePage($username) {
+  public function showProfilePage() {
+    $username = $_GET['username'];
     if ($this->db->exists('users', 'username', $username)) {
       $user = $this->db->getUser('username', $username);
-      $this->view->show('public_profile', array('user'=>$user));
+      $this->view->show('profile', array('user'=>$user));
       $this->view->render('html');
     } else {
       $this->view->show('user_not_found');
