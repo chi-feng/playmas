@@ -1,5 +1,7 @@
+<div id="content">
 <?php
-$users = $viewOptions['userArray'];
+
+$users = $this->data['users'];
 
 echo '<table>';
 foreach ($users as $user) {
@@ -11,3 +13,4 @@ echo '</table>';
 
 ?>
 
+</div>

@@ -1,16 +1,17 @@
-<div id="content">
+<div id="content" class="clearfix">
 <div id="registration">
 <?php
-if (isset($viewOptions)) {
-  echo '<div id="errors">';
-  if (isset($viewOptions['errors']) && count($viewOptions['errors'])) {
-    echo '<ul>';
-    foreach ($viewOptions['errors'] as $error) {
-      printf("<li>%s</li>\n", $error);
+$errors = '';
+if (isset($this->data['errors'])) {
+  $errors .= '<div class="errors">';
+  if (isset($this->data['errors']) && count($this->data['errors'])) {
+    $errors .=  '<ul>';
+    foreach ($this->data['errors'] as $error) {
+      $errors .= sprintf("<li>%s</li>\n", $error);
     }
-    echo '</ul>';
+    $errors .=  '</ul>';
   }
-  echo '</div>';
+  $errors .=  '</div>';
 }
 ?>
 
@@ -52,6 +53,9 @@ if (isset($viewOptions)) {
       <div class="field-help">Choose a location.</div>
     </div>
   </div>
+
+  <input class="submit disabled" type="submit" id="submit-button" value="Register" disabled="true" />
+  <?=$errors;?>
 </form>
 
 <script>
@@ -98,10 +102,12 @@ $(function() {
 <script> 
 
 function validateForm() {
-  if ($('input[name="password"]').val().length > 0 && $('input[name="password"]').val() ==  $('input[name="passwordVerify"]').val()) {
-    $('#submit-button').removeAttr('disabled').fadeIn(200);
+  if ($('input[name="password"]').val().length > 0 && $('input[name="password"]').val() ==  $('input[name="password_verify"]').val()) {
+    $('#submit-button').removeAttr('disabled');
+    $('#submit-button').removeClass('disabled');
   } else {
-    $('#submit-button').attr('disabled', true).fadeOut(200);
+    $('#submit-button').attr('disabled', true);
+    $('#submit-button').addClass('disabled');
   }
 }
 
@@ -112,7 +118,7 @@ $(document).ready(function() {
     validateForm(); 
   });
 
-  $('input[name="passwordVerify"]').keyup(function() {
+  $('input[name="password_verify"]').keyup(function() {
     validateForm(); 
   });
 });
