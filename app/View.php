@@ -17,6 +17,8 @@ class View {
    */
   private $output;
   
+  private $data;
+  
   /**
    * Default constructor, initializes output buffer to emptystring.
    *
@@ -24,6 +26,14 @@ class View {
    */
   public function __construct() {
     $output = '';
+  }
+  
+  public function set($field, $value) {
+    $this->data[$field] = $value;
+  }
+  
+  public function get($field) {
+    return $this->data[$field];
   }
   
   /**
@@ -56,7 +66,7 @@ class View {
    * @return void
    * @author Chi Feng
    */
-  public function render($format) {
+  public function render($format, $json=array()) {
     if ($format == 'html') {
       ob_start();
       require('views/header.php');
@@ -64,7 +74,8 @@ class View {
       require('views/footer.php');
       ob_flush();
     } else if ($format == 'json') {
-      echo $this->output;
+      header('Content-type: application/json');
+      echo json_encode($json);
     } else {
       fatal_error('View Error', "Unknown render format '$format'");
     }
