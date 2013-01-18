@@ -1,4 +1,7 @@
 <?php
+
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+
 class Bcrypt {
   private $rounds;
   public function __construct($rounds = 12) {

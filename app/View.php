@@ -1,6 +1,6 @@
 <?php
 
-require_once('views/List.php');
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 
 /**
  * View object to display views. Part of the MVC framework.
@@ -17,6 +17,8 @@ class View {
    */
   private $output;
   
+  private $data;
+  
   /**
    * Default constructor, initializes output buffer to emptystring.
    *
@@ -24,6 +26,14 @@ class View {
    */
   public function __construct() {
     $output = '';
+  }
+  
+  public function set($field, $value) {
+    $this->data[$field] = $value;
+  }
+  
+  public function get($field) {
+    return $this->data[$field];
   }
   
   /**
@@ -34,19 +44,19 @@ class View {
    * @return void
    * @author Chi Feng
    */
-  public function showView($view, $options=NULL) {
-    global $allowedViews;
-    if (!in_array($view, $allowedViews)) {
-      fatal_error('View Error', "View '$view' not in allowedViews");
-    }
+  public function show($view, $options=NULL) {
 
-    global $viewOptions;
-    $viewOptions = $options; 
+    global $views;
+
+    if (!in_array($view, $views)) {
+      throw new Exception("View '$view' not in allowedViews");
+    }
     
     ob_start();
     require("views/{$view}.php");
     $this->output .= ob_get_contents();
     ob_end_clean();
+    
   }
   
   /**
@@ -56,7 +66,7 @@ class View {
    * @return void
    * @author Chi Feng
    */
-  public function render($format) {
+  public function render($format, $json=array()) {
     if ($format == 'html') {
       ob_start();
       require('views/header.php');
@@ -64,7 +74,8 @@ class View {
       require('views/footer.php');
       ob_flush();
     } else if ($format == 'json') {
-      echo $this->output;
+      header('Content-type: application/json');
+      echo json_encode($json);
     } else {
       fatal_error('View Error', "Unknown render format '$format'");
     }

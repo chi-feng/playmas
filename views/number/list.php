@@ -4,13 +4,13 @@
 <div id="content">
 <?php
 
-$users = $this->data['users'];
+$numbers = $this->data['numbers'];
 
 echo '<table>';
-foreach ($users as $user) {
+foreach ($numbers as $number) {
   printf('<tr><td>%s</td><td>%s</td></tr>',
-  '<a href="'.route('users/'.$user['username']).'">'.$user['username'].'</a>',
-  $user['email']);
+  '<a href="'.route('users/'.$number['username']).'">'.$number['username'].'</a>',
+  $number['number']);
 }
 echo '</table>';
 

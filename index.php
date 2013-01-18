@@ -1,93 +1,47 @@
 <?php
 
+define('INCLUDE_GUARD', true);
+define('SHOW_EXCEPTIONS', true); 
+
+require_once 'includes.php';
+
 session_start();
 
-require_once('app/Common.php');
-require_once('app/View.php');
-require_once('app/Database.php');
-
-$db = new Database();
-$db->connect('localhost', 'root', 'hicfneg12', 'playmas');
-
-$view = new View();
-
-$action = isset($_GET['a']) ? $_GET['a'] : 'home';
-$verb = $_SERVER['REQUEST_METHOD'];
-
-if ($action == 'home') {
-  $view->showView('home');
-}
-
-if ($action == 'test') {
-  $view->showView('test');
-}
-
-if ($action == 'user_new') {
-  require_once('controllers/UserController.php');
-  $userCtrl = new UserController($db, $view); 
-  if ($verb == 'GET') {
-    $userCtrl->showRegistrationForm(); 
-  } elseif ($verb == 'POST') {
-    $userCtrl->registerUser($_POST);
-  } else {
-    fatal_error('Invalid Request', 'Unknown HTTP verb in user_new');
-  }
-}
-
-if ($action == 'user_list') {
-  require_once('controllers/UserController.php');
-  $userCtrl = new UserController($db, $view);
-  if($verb == 'GET') {
-    $userCtrl->showUserTable();
-  } else {
-    fatal_error('Invalid REquest','Unknown HTTP verb in users');
-  }
-
-}
-
-if ($action == 'login') {
-  require_once('controllers/LoginController.php');
-  $loginCtrl = new LoginController($db, $view);
-  if ($verb == 'GET') {
-    $loginCtrl->showLoginForm();
-  } elseif ($verb == 'POST') {
-    $loginCtrl->doLogin($_POST);
-  } else {
-    fatal_error('Invalid Request', 'Unknown HTTP verb in login');
-  }
-}
-
-if ($action == 'logout') {
-  require_once('controllers/LoginController.php');
-  $loginCtrl = new LoginController($db, $view);
-  if ($verb == 'GET') {
-    $loginCtrl->doLogout();
-  } else {
-    fatal_error('Invalid Request', 'Unknown HTTP verb in logout');
-  }
-}
-
-if ($action == 'user_view') {
-  require_once('controllers/UserController.php');
-  $userCtrl = new UserController($db, $view); 
-  if ($verb == 'GET') {
-    if (!isset($_GET['username'])) {
-      fatal_error('Invalid Request', 'user_view not given id from routes');
+try {
+  // initialize database and view
+  $view = new View();
+  $db = new Database();
+  $db->connect('localhost', 'root', 'hicfneg12', 'playmas');
+  // get the action and request method
+  $action = isset($_GET['a']) ? $_GET['a'] : 'home';
+  $method = $_SERVER['REQUEST_METHOD'];
+  // search for a route that matches the action and method
+  $foundMatchingRoute = false; 
+  foreach ($routes as $route) {
+    if ($action == $route[0] && $method == $route[1]) {
+      // get class name and function
+      $controllerClassName = $route[2] . 'Controller';
+      $functionName = $route[3];
+      // instantiate object and call function
+      $controller = new $controllerClassName($db, $view);
+      $controller->$functionName();
+      $foundMatchingRoute = true;
     }
-    $userCtrl->showProfilePage($_GET['username']); 
-  } elseif ($verb == 'POST') {
-    $userCtrl->updateProfile($_POST);
-  } else {
-    fatal_error('Invalid Request', 'Unknown HTTP verb in user_view');
+  }
+  // did not find matching route: display 404 page
+  if (!$foundMatchingRoute) {
+    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
+    $view->show('site/404');
+    $view->render('html');
+  }
+} catch (Exception $ex) {
+  header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+  if (SHOW_EXCEPTIONS) {
+    echo '<h1>Exception</h1>';
+    echo '<h2>'.$ex->getMessage()."</h2>";
+    echo '<pre>'.$ex->getTraceAsString().'</pre>';
   }
 }
-
-if ($action == 'autocomplete_location') {
-  echo $db->getLocationJSON($_REQUEST['query']);
-  exit();
-}
-
-$view->render('html');
 
 session_write_close();
 

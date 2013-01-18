@@ -1,7 +1,6 @@
 <?php
 
-require_once('app/Bcrypt.php');
-require_once('models/User.php');
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 
 class LoginController { 
   
@@ -31,30 +30,30 @@ class LoginController {
     $this->view = $view;
   }
 
-
   public function showLoginForm() {
-    $this->view->showView('login_form');
+    $this->view->show('user/login');
+    $this->view->render('html');
   }
   
-  public function doLogin($postvars) {
+  public function doLogin() {
+    
     $errors = array();
-    // check if username exists
-    $filters = array(array('username', '=', $postvars['username'])); 
-    if ($this->db->select('users','count', $filters) == 0) {
-      $errors[] = 'Username does not exist.';
-    } else {
-      $user = new User(array('username', $postvars['username']), $this->db); 
-      $bcrypt = new Bcrypt(BCRYPT_ITER);;
-      if ($bcrypt->verify($postvars['password'], $user->get('password_hash'))) {
-        $_SESSION['username'] = $user->get('username');
-        $_SESSION['display_name'] = $user->get('display_name');
-        $_SESSION['id'] = $user->get('id');
-        header('Location: '.route('home'));
+    
+    if ($this->db->exists('users', 'username', $_POST['username'])) {
+      $user = $this->db->getUser('username', $_POST['username']);
+      if (cryptVerify($_POST['password'], $user->get('password_hash'))) {
+        createSession($user);
+        header('Location: '.route('dashboard'));
       } else {
         $errors[] = "Username/password mismatch.";
       }
+    } else {
+      $errors[] = 'Username does not exist.';
     }
-    $this->view->showView('login_form', array('postdata'=>$postdata, 'errors'=>$errors));
+    $this->view->set('errors', $errors);
+    $this->view->set('postdata', $_POST);
+    $this->view->show('user/login');
+    $this->view->render('html');
   }
   
   public function doLogout() {

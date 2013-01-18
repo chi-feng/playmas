@@ -1,6 +1,7 @@
 <?php
-$user = $viewOptions['user'];
+$user = $this->data['user'];
 ?>
+<div id="content">
 <div id="public-profile">
   <div id="social" class="clearfix">
     <div id="profile-picture">
@@ -40,13 +41,10 @@ $user = $viewOptions['user'];
     <div id="profile-location">
       <span>
       <?php
-      if ($user->get('city') != '') {
-        echo  $user->get('city').', '.$user->get('country');
-      } else {
-        echo $user->get('country');
-      }
+        echo $user->get('location');
       ?>
       </span>
     </div>
   </div>
+</div>
 </div>

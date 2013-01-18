@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+
 /**
  * Server time zone, to satisfy PHP warning and to get consistent timestamps 
  */
@@ -15,68 +17,62 @@ else {
 
 define('BCRYPT_ITER', 10);
 
-/**
- * Display fatal error message and die
- *
- * @param string $errname name/category of the error
- * @param string $details details of the error
- * @return void
- * @author Chi Feng
- */
-function fatal_error($errname, $details) {
-  echo '<link href="'.route('css/screen.css').'" rel="stylesheet" type="text/css" media="screen" />';
-  echo '<div class="error">';
-  echo '<p><strong>' . $errname .'</strong></p>';
-  echo '<p>' . $details . '</p>';
-  echo '</div>';
-  exit();
-}
-
-/**
- * Validate and Sanitize 
- *
- * @param string $value value to be sanitized
- * @param string $type type of validation to perform, e.g. alphanumeric, int
- * @param array $options additional options, e.g. min_length, max_length
- * @return array 'valid' => boolean, 'value' => sanitized value
- * @author Chi Feng
- */
-function validate($value, $type, $options=NULL) {
+function validate($type, $value) {
   $value = trim($value);
   switch ($type) {
-    case 'alphanumeric':
-      return array(
-        'valid' => ctype_alnum($value),
-        'value' => $value);
+    case 'username':
+      return ctype_alnum($value);
       break;
     case 'string':
       $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
-      return array(
-        'valid'=>!empty($value),
-        'value'=>$value);
+      return true;
       break;
     case 'int':
       $value = filter_var($value, FILTER_SANITIZE_NUMBER_INT);
-      return array(
-        'valid'=>filter_var($value, FILTER_VALIDATE_INT),
-        'value'=>$value);
+      return filter_var($value, FILTER_VALIDATE_INT);
       break;
     case 'email':
       $value = filter_var($value, FILTER_SANITIZE_EMAIL);
-      return array(
-        'valid'=>filter_var($value, FILTER_VALIDATE_EMAIL),
-        'value'=>$value);
+      return filter_var($value, FILTER_VALIDATE_EMAIL);
       break;
     case 'url':
       $value = filter_var($value, FILTER_SANITIZE_URL);
-      return array(
-        'valid'=>filter_var($value, FILTER_VALIDATE_URL),
-        'value'=>$value);
+      return filter_var($value, FILTER_VALIDATE_URL);
       break;
     default:
-      fatal_error('Common.validate', 'Unknown type '.$type);
+      throw new Exception("Unkown type '$type'");
+      break;
   }
   return false;
+}
+
+function sanitize($type, &$value) {
+  $value = trim($value);
+  switch ($type) {
+    case 'username':
+      return $value;
+      break;
+    case 'string':
+      $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+      return $value;
+      break;
+    case 'int':
+      $value = filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+      return $value;
+      break;
+    case 'email':
+      $value = filter_var($value, FILTER_SANITIZE_EMAIL);
+      return $value;
+      break;
+    case 'url':
+      $value = filter_var($value, FILTER_SANITIZE_URL);
+      return $value;
+      break;
+    default:
+      throw new Exception("Unkown type '$type'");
+      break;
+  }
+  return NULL;
 }
 
 /**
@@ -89,5 +85,70 @@ function validate($value, $type, $options=NULL) {
 function route($route) {
   return SITEROOT.$route;
 }
+
+function createSession($user) {      
+  $_SESSION['username'] = $user->get('username');
+  $_SESSION['display_name'] = $user->get('display_name');
+  $_SESSION['id'] = $user->get('id');
+}
+
+function cryptHash($value) {
+  require_once('app/Bcrypt.php');
+  $bcrypt = new Bcrypt(BCRYPT_ITER);
+  return $bcrypt->hash($value);
+}
+
+function cryptVerify($value, $hash) {
+  require_once('app/Bcrypt.php');
+  $bcrypt = new Bcrypt(BCRYPT_ITER);
+  return $bcrypt->verify($value, $hash);
+}
+
+function errorHandler($errno, $errstr, $errfile, $errline) {
+
+    if (!(error_reporting() & $errno)) {
+        // This error code is not included in error_reporting
+        return;
+    }
+
+    switch ($errno) {
+      
+    case E_USER_ERROR:
+        echo '<div class="error-handler">';
+        echo "<b>ERROR</b> [$errno] $errstr<br />\n";
+        echo "  Fatal error on line $errline in file $errfile";
+        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
+        echo "Aborting...<br />\n";
+        echo '</div>';
+        exit(1);
+        break;
+
+    case E_USER_WARNING:
+        echo '<div class="error-handler">';
+        echo "<b>WARNING</b> [$errno] $errstr<br />\n";
+        echo "Line $errline in file $errfile";
+        echo '</div>';
+        break;
+
+    case E_USER_NOTICE:
+        echo '<div class="error-handler">';
+        echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
+        echo "Line $errline in file $errfile";
+        echo '</div>';
+        break;
+
+    default:
+        echo '<div class="error-handler">';
+        echo "Unknown error type: [$errno] $errstr<br />\n";
+        echo "Line $errline in file $errfile";
+        echo '</div>';
+        break;
+        
+    }
+
+    return true;
+}
+
+set_error_handler('errorHandler');
 
 ?>

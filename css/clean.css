@@ -1,0 +1,36 @@
+
+/* TABULA RASA, BITCHES */
+*, *:before, *:after { margin: 0; padding: 0; border: 0; outline: 0; 
+  font-size: 100%; vertical-align: baseline; background: transparent; }
+
+/* BORDER-BOX MODEL, YO */
+*, *:before, *:after {
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box; 
+  box-sizing: border-box; 
+}
+
+/* LESS SUCK MORE WIN */
+html, body { height:100%; } 
+table { border-collapse:collapse; }
+.disabled { pointer-events: none; opacity: 0.5; }
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+a { text-decoration: none; }
+ul { list-style: none; }
+
+/* FONTS, WHY U NO RENDER PROPERLY */
+body {
+  font: 13px/1.25 Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.1;
+}
+
+input, select, textarea {
+    font: 100% Helvetica, Arial, sans-serif;
+    font-weight: normal;
+}

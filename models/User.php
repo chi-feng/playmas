@@ -1,30 +1,31 @@
 <?php
 
-require_once('models/Model.php');
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+
+define('USER_DISABLED', 0);
+define('USER_ACTIVE', 1);
 
 class User extends Model { 
   
-  public function __construct($array, $db, $options=array()) {
-  
-    $this->db = $db;
+  public function __construct($array, $options=array()) {
     
     $this->table = 'users';
     
     $this->fields = array(
-      'id' => array('type' => 'int', 'unique'=>true), 
-      'username' => array('type' => 'string', 'unique'=>true), 
-      'display_name' => array('type' => 'string', 'unique'=>true), 
-      'email' => array('type' => 'string', 'unique'=>true), 
-      'password_hash' => array('type' => 'string'), 
-      'cred' => array('type' => 'int'), 
-      'created' => array('type' => 'int'), 
-      'status' => array('type' => 'int'),
-      'has_picture' => array('type' => 'int'),
-      'twitter' => array('type' => 'int'),
-      'description' => array('type' => 'string'),
-      'city' => array('type' => 'string'),
-      'country' => array('type' => 'string'),
-      'timezone' => array('type' => 'int')
+      'id'            => array('type' => 'int',     'value' => 0), 
+      'username'      => array('type' => 'username','value' => ''), 
+      'display_name'  => array('type' => 'string',  'value' => ''), 
+      'email'         => array('type' => 'email',   'value' => ''), 
+      'password_hash' => array('type' => 'string',  'value' => ''), 
+      'cred'          => array('type' => 'int',     'value' => 0), 
+      'created'       => array('type' => 'time',    'value' => time()), 
+      'status'        => array('type' => 'int',     'value' => USER_DISABLED),
+      'has_picture'   => array('type' => 'int',     'value' => 0),
+      'twitter'       => array('type' => 'string',  'value' => ''),
+      'description'   => array('type' => 'string',  'value' => ''),
+      'timezone'      => array('type' => 'int',     'value' => 5),
+      'location_id'   => array('type' => 'int',     'value' => 0),
+      'location'      => array('type' => 'virtual', 'value' => '')
     );
     
     $this->populate($array, $options);

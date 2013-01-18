@@ -2,8 +2,7 @@
   if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 ?>
 <div id="content">
-<div id="loginpage">
-<form id="login-form" action="<?=route('login');?>" method="post">
+<form action="<?=route('numbers/edit');?>" method="post">
   <div class="field clearfix active">
   <label for="username" class="active">Username</label>
     <div class="field-wrap">
@@ -33,7 +32,6 @@
 </form>
 </div>
 
-</div>
 
 <script>
 $(document).ready(function() {
