@@ -52,7 +52,8 @@ class UserController {
     $username = $_GET['username'];
     if ($this->db->exists('users', 'username', $username)) {
       $user = $this->db->getUser('username', $username);
-      $this->view->show('profile', array('user'=>$user));
+      $this->view->set('user', $user);
+      $this->view->show('profile');
       $this->view->render('html');
     } else {
       $this->view->show('user_not_found');

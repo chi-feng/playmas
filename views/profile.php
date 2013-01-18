@@ -1,5 +1,5 @@
 <?php
-$user = $viewOptions['user'];
+$user = $this->data['user'];
 ?>
 <div id="content">
 <div id="public-profile">
