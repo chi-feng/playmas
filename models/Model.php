@@ -14,6 +14,9 @@ class Model {
   }
   
   public function get($fieldName) {
+    if ($fieldName == 'table') {
+      return $this->table;
+    }
     if (isset($this->fields[$fieldName])) {
       return $this->fields[$fieldName]['value']; 
     } else {
@@ -35,10 +38,10 @@ class Model {
   
   public function save($db) {
     if ($this->fields['id']['value'] == 0) {
-      $insert_id = $db->insert($this->table, $this);
+      $insert_id = $db->insert($this);
       $this->set('id', $insert_id);
     } else {
-      $db->update($this->table, $this);
+      $db->update($this);
     }
   }
   
