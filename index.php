@@ -11,6 +11,9 @@ require_once('controllers/UserController.php');
 
 require_once('models/Model.php');
 require_once('models/User.php');
+require_once('models/Number.php');
+
+try {
 
 $db = new Database();
 $db->connect('localhost', 'root', 'hicfneg12', 'playmas');
@@ -32,10 +35,41 @@ elseif ($action == 'user_new') {
     $view->render('html');
   } elseif ($verb == 'POST') {
     $userCtrl->registerUser($_POST);
-    $view->render('json');
+    $view->render('html');
   } else {
     throw new Exception('Invalid HTTP verb in this context.');
   }
+}
+elseif ($action == 'number_list') {
+  if($verb == 'GET') {
+    $numbers = $db->getPaginated('numbers', 1);
+    $view->set('numbers', $numbers);
+    $view->showView('numbers');
+    $view->render('html');
+  } else {
+    throw new Exception('Invalid HTTP verb in this context.');
+  }
+}
+elseif ($action == 'number_new') {
+  if ($verb == 'GET') {
+    $view->showView('number_new_form'); 
+    $view->render('html');    
+  } elseif ($verb == 'POST') {
+    
+    $user = $db->getUser('username', $_POST['username']);
+    
+    $arr = array(
+      'number' => $_POST['number'],
+      'user_id' => $user->get('id')
+    );
+    
+    $number = new Number($arr);
+    
+    $number->save($db);
+    header('Location: ' . route('numbers'));
+    
+  } 
+  
 }
 
 elseif ($action == 'user_list') {
@@ -88,16 +122,13 @@ elseif ($action == 'user_view') {
   }
 }
 
-elseif ($action == 'autocomplete_location') {
-  $json = $db->getLocationJSON($_REQUEST['query']);
-  $view->showView('json', $json);
-  $view->render('json');
-} 
-
+elseif ($action == 'autocomplete') {
+  $suggestions = $db->getAutocompleteSuggestions($_GET['field'], $_POST['query']);
+  $view->render('json', $suggestions);
+}
 
 elseif ($action == 'dashboard') {
-  // TODO: authenticate here
-  $view->showView('dashboard', $_SESSION['display_name']);
+  $view->showView('dashboard');
   $view->render('html');
 } 
 
@@ -108,5 +139,12 @@ else {
 }
 
 session_write_close();
+
+} catch (Exception $e) {
+  echo '<h1>Exception</h1>';
+  echo '<h2>'.$e->getMessage()."</h2>";
+  echo '<pre>'.$e->getTraceAsString().'</pre>';
+}
+
 
 ?>
