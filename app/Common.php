@@ -126,18 +126,21 @@ function errorHandler($errno, $errstr, $errfile, $errline) {
     case E_USER_WARNING:
         echo '<div class="error-handler">';
         echo "<b>WARNING</b> [$errno] $errstr<br />\n";
+        echo "Line $errline in file $errfile";
         echo '</div>';
         break;
 
     case E_USER_NOTICE:
         echo '<div class="error-handler">';
         echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
+        echo "Line $errline in file $errfile";
         echo '</div>';
         break;
 
     default:
         echo '<div class="error-handler">';
         echo "Unknown error type: [$errno] $errstr<br />\n";
+        echo "Line $errline in file $errfile";
         echo '</div>';
         break;
         
