@@ -1,6 +1,6 @@
 <?php
 
-require_once('views/List.php');
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 
 /**
  * View object to display views. Part of the MVC framework.
@@ -44,19 +44,19 @@ class View {
    * @return void
    * @author Chi Feng
    */
-  public function showView($view, $options=NULL) {
-    global $allowedViews;
-    if (!in_array($view, $allowedViews)) {
+  public function show($view, $options=NULL) {
+
+    global $views;
+
+    if (!in_array($view, $views)) {
       throw new Exception("View '$view' not in allowedViews");
     }
-
-    global $viewOptions;
-    $viewOptions = $options; 
     
     ob_start();
     require("views/{$view}.php");
     $this->output .= ob_get_contents();
     ob_end_clean();
+    
   }
   
   /**

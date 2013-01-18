@@ -1,3 +1,6 @@
+<?php
+  if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+?>
 <div id="content">
 <form action="<?=route('numbers/new');?>" method="post">
   
@@ -15,43 +18,22 @@
     </div>
   </div>
   
-  <input class="submit" type="submit" value="Login" />
+  <input class="submit" type="submit" value="Add Number" />
   
 </form>
 </div>
 
+<script src="<?=route('js/forms.js');?>"></script>
+
 <script>
 $(document).ready(function() {
-  
+
+  // add autocomplete to username field
 	$("input[name='username']").autocomplete({
     source: function(req, add) {
-      var suggestions = [];
-      $.ajax({
-        type: "POST",
-        url: "<?=route('autocomplete/username');?>",
-        data: { query: req.term },
-        success: function(returned_data) {
-          suggestions = returned_data;
-          add(suggestions);
-        },
-        dataType: "json"
-      });
+      $.post("<?=route('autocomplete/username');?>", {query: req.term}, 
+        function(data) { add(data); }, 'json');
     }
-  });
-  
-  function removeActive() {
-    $('form label').removeClass('active');
-    $('form .field').removeClass('active');
-  }
-  
-  $('form input').focus(function() {
-    removeActive();
-    $("label[for='"+$(this).attr('name')+"']").addClass('active');
-    $(this).closest('.field').addClass('active');
-  });
-  
-  $('form input').blur(function() {
-    removeActive();
   });
   
 });

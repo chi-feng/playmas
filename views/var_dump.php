@@ -1,7 +1,8 @@
+<?php
+  if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+?>
 <pre>
 <?php
-if (isset($viewOptions) && isset($viewOptions['var'])) { 
-  var_dump($viewOptions['var']);
-} 
+  var_dump($this->data);
 ?>
 </pre>

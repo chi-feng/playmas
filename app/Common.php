@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+
 /**
  * Server time zone, to satisfy PHP warning and to get consistent timestamps 
  */
@@ -95,5 +97,47 @@ function cryptHash($value) {
   $bcrypt = new Bcrypt(BCRYPT_ITER);
   return $bcrypt->hash($value);
 }
+
+function cryptVerify($value, $hash) {
+  require_once('app/Bcrypt.php');
+  $bcrypt = new Bcrypt(BCRYPT_ITER);
+  return $bcrypt->verify($value, $hash);
+}
+
+function errorHandler($errno, $errstr, $errfile, $errline) {
+
+    if (!(error_reporting() & $errno)) {
+        // This error code is not included in error_reporting
+        return;
+    }
+
+    switch ($errno) {
+      
+    case E_USER_ERROR:
+        echo "<b>ERROR</b> [$errno] $errstr<br />\n";
+        echo "  Fatal error on line $errline in file $errfile";
+        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
+        echo "Aborting...<br />\n";
+        exit(1);
+        break;
+
+    case E_USER_WARNING:
+        echo "<b>WARNING</b> [$errno] $errstr<br />\n";
+        break;
+
+    case E_USER_NOTICE:
+        echo "<b>NOTICE</b> [$errno] $errstr<br />\n";
+        break;
+
+    default:
+        echo "Unknown error type: [$errno] $errstr<br />\n";
+        break;
+        
+    }
+
+    return true;
+}
+
+set_error_handler('errorHandler');
 
 ?>

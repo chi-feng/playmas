@@ -1,7 +1,6 @@
 <?php
 
-require_once('app/Bcrypt.php');
-require_once('models/User.php');
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 
 class LoginController { 
   
@@ -32,7 +31,8 @@ class LoginController {
   }
 
   public function showLoginForm() {
-    $this->view->showView('login_form');
+    $this->view->show('login_form');
+    $this->view->render('html');
   }
   
   public function doLogin() {
@@ -41,8 +41,7 @@ class LoginController {
     
     if ($this->db->exists('users', 'username', $_POST['username'])) {
       $user = $this->db->getUser('username', $_POST['username']);
-      $bcrypt = new Bcrypt(BCRYPT_ITER);
-      if ($bcrypt->verify($_POST['password'], $user->get('password_hash'))) {
+      if (cryptVerify($_POST['password'], $user->get('password_hash'))) {
         createSession($user);
         header('Location: '.route('dashboard'));
       } else {
@@ -52,7 +51,8 @@ class LoginController {
       $errors[] = 'Username does not exist.';
     }
     
-    $this->view->showView('login_form', array('postdata'=>$postdata, 'errors'=>$errors));
+    $this->view->show('login_form', array('postdata'=>$postdata, 'errors'=>$errors));
+    $this->view->render('html');
   }
   
   public function doLogout() {

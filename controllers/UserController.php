@@ -1,5 +1,6 @@
 <?php
-require_once('models/User.php');
+
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 
 class UserController { 
   
@@ -36,7 +37,8 @@ class UserController {
    * @author Chi Feng
    */
   public function showRegistrationForm() {
-    $this->view->showView('registration_form');
+    $this->view->show('registration_form');
+    $this->view->render('html');
   }
   
   /**
@@ -49,9 +51,11 @@ class UserController {
   public function showProfilePage($username) {
     if ($this->db->exists('users', 'username', $username)) {
       $user = $this->db->getUser('username', $username);
-      $this->view->showView('public_profile', array('user'=>$user));
+      $this->view->show('public_profile', array('user'=>$user));
+      $this->view->render('html');
     } else {
-      $this->view->showView('user_not_found');
+      $this->view->show('user_not_found');
+      $this->view->render('html');
     }
   }
   
@@ -61,11 +65,12 @@ class UserController {
    * @return void
    * @author Jeff Liu
    */
-  public function showUserTable() {
+  public function showUsers() {
     $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $users = $this->db->getPaginated('users', $page);
     $this->view->set('users', $users);
-    $this->view->showView('users');
+    $this->view->show('users');
+    $this->view->render('html');
   }
   
   /**
@@ -121,7 +126,8 @@ class UserController {
       
       $this->view->set('errors', $errors);
       $this->view->set('postdata', $_POST);
-      $this->view->showView('registration_form');
+      $this->view->show('registration_form');
+      $this->view->render('html');
       
     }
     

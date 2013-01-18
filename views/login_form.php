@@ -1,3 +1,6 @@
+<?php
+  if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+?>
 <div id="content">
 <div id="loginpage">
 <form id="login-form" action="<?=route('login');?>" method="post">

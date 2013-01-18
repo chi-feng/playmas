@@ -1,4 +1,6 @@
 <?php
+
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
   
 $logged_in = isset($_SESSION['username']);
 $username = $_SESSION['username'];
@@ -12,7 +14,6 @@ $display_name = $_SESSION['display_name'];
   <link href="<?=route('css/screen.css');?>" rel="stylesheet" type="text/css" media="screen" />
   <link rel="icon" href="<?=route('favicon.png');?>" sizes="16x16" type="image/png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script src="<?=route('js/jquery.autocomplete.min.js');?>"></script>
   <script src="<?=route('js/jquery.ui.autocomplete.js');?>"></script>
 </head>
 <body>

@@ -1,4 +1,6 @@
-
+<?php
+  if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+?>
 <div id="homepage" class="clearfix">
   <div class="blurb-wide">
     <h2>Your digital booth assistant</h2>

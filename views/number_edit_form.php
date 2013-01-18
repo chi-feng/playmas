@@ -1,3 +1,6 @@
+<?php
+  if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+?>
 <div id="content">
 <form action="<?=route('numbers/edit');?>" method="post">
   <div class="field clearfix active">

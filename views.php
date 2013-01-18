@@ -1,21 +1,20 @@
 <?php
 
-$allowedViews = array(
+if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
+
+$views = array(
   'home',
   '404',
   'dashboard',
   'account',
   'login_form',
+  'numbers',
   'number_new_form',
   'number_edit_form',
-  'numbers',
   'registration_form',
   'users',
-  'public_profile',
-  'private_profile',
-  'test',
+  'profile',
   'user_not_found',
-  'json',
   'var_dump' // for debugging stuff
 );
 
