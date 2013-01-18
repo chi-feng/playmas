@@ -1,18 +1,18 @@
 
 <div id="homepage" class="clearfix">
   <div class="blurb-wide">
-    <h2>Easy DJ Requests <br />
-      Over the Interwebs</h2>
-    <h4>Handling requests suck. <br />
-      Suck less.</h4>
-    <p>PlayMAS helps you Lorem ipsum dolor sit amet, 
-      consectetur adipiscing elit. Cras tristique, 
-      mi quis rutrum pellentesque, arcu velit porta justo, 
-      eget commodo risus elit et justo. </p> 
+    <h2>Your digital booth assistant</h2>
+    <h4>Fueled by science<br />Works like magic</h4>
+    <p>PlayMAS is . </p> 
     <div class="registration">
       <a class="button registration-button" href="<?=route('users/new');?>">Sign Up Free</a>
     </div>
   </div>
+  
+  <a class="button registration-button" href="<?=route('users');?>">View Users</a>
+  <a class="button registration-button" href="<?=route('numbers');?>">View Numbers</a>
+  <a class="button registration-button" href="<?=route('numbers/new');?>">New Number</a>
+  
 </div>
 
 
