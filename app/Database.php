@@ -35,7 +35,8 @@ class Database {
     return false;
   }
   
-  public function insert($table, $object) {
+  public function insert($object) {
+    $table = $object->get('table');
     $fields = $object->getFields();
     $names = array();
     $values = array();
@@ -56,7 +57,9 @@ class Database {
     }
   }
   
-  public function update($table, $object) {$fields = $object->getFields();
+  public function update($object) {
+    $table = $object->get('table');
+    $fields = $object->getFields();
     $id = $object->get('id');
     if ($this->exists($table, 'id', $id)) {
       $set = array();
@@ -76,6 +79,33 @@ class Database {
       throw new Exception('Cannot update nonexistant database entry.');
     }
     return false; 
+  }
+  
+  /**
+   * Gets rows from database table (paginated)
+   *
+   * @param string $table name of database table
+   * @param int $page page number
+   * @return array rows
+   * @author Chi Feng
+   */
+  public function getPaginated($table, $page) {
+    $numPerPage = 10; 
+    $lower = ($page - 1) * $numPerPage;
+    $sql = "SELECT * FROM $table WHERE 1 LIMIT $lower, $numPerPage";
+    if ($table == 'numbers') { 
+      $sql = "SELECT numbers.*, users.username FROM numbers 
+              LEFT JOIN users ON numbers.user_id=users.id
+              WHERE 1 LIMIT $lower, $numPerPage";
+    }      
+    $arr = array();
+    if ($result = $this->mysqli->query($sql)) {
+      while ($row = $result->fetch_assoc()) {
+        $arr[] = $row;
+      }
+      $result->close(); 
+    }
+    return $arr;
   }
   
   /**
@@ -113,28 +143,29 @@ class Database {
     return NULL;
   }
   
-  /**
-   * Queries the database to find partial matches to a City, State for
-   * location autocomplete 
-   *
-   * @param string $value 
-   * @return string json representation of locations 
-   * @author Chi Feng
-   */
-  public function getLocationJSON($value) {
+  public function getAutocompleteSuggestions($field, $value) {
     $value = $this->sanitizeString($value);
-    $sql = "SELECT city as location 
-            FROM locations WHERE city LIKE '$value%' 
-            ORDER BY population DESC LIMIT 5";
+    $sql = '';
+    if ($field == 'username') {
+      $sql = "SELECT username FROM users 
+              WHERE username LIKE '$value%' LIMIT 5";
+    } elseif ($field == 'location') {
+      $sql = "SELECT city as location FROM locations 
+              WHERE city LIKE '$value%' 
+              ORDER BY population DESC LIMIT 5";
+    } else {
+      throw new Exception("Unknown field '$field'");
+    }
     $suggestions = array();
     if ($result = $this->mysqli->query($sql)) {
       while ($row = $result->fetch_assoc()) {
-        $suggestions[] = $row['location'];
+        $suggestions[] = $row[$field];
       }
       $result->close(); 
     }
-    return json_encode($suggestions);
+    return $suggestions;
   }
+  
 
 }
 
