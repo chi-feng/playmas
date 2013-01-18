@@ -16,12 +16,12 @@ class NumberController {
   public function showNumbers() {
     $numbers = $this->db->getPaginated('numbers', 1);
     $this->view->set('numbers', $numbers);
-    $this->view->show('numbers');
+    $this->view->show('number/list');
     $this->view->render('html');
   }
   
   public function showNewNumberForm() {
-    $this->view->show('number_new_form'); 
+    $this->view->show('number/new'); 
     $this->view->render('html');    
   }
   

@@ -14,12 +14,12 @@ class SiteController {
   }
 
   public function showHome() {
-    $this->view->show('home');
+    $this->view->show('site/home');
     $this->view->render('html');
   }
   
   public function showDashboard() {
-    $this->view->show('dashboard');
+    $this->view->show('dashboard/dashboard');
     $this->view->render('html');
   }
 

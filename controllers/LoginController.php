@@ -31,7 +31,7 @@ class LoginController {
   }
 
   public function showLoginForm() {
-    $this->view->show('login_form');
+    $this->view->show('user/login');
     $this->view->render('html');
   }
   
@@ -50,8 +50,9 @@ class LoginController {
     } else {
       $errors[] = 'Username does not exist.';
     }
-    
-    $this->view->show('login_form', array('postdata'=>$postdata, 'errors'=>$errors));
+    $this->view->set('errors', $errors);
+    $this->view->set('postdata', $_POST);
+    $this->view->show('user/login');
     $this->view->render('html');
   }
   

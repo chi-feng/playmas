@@ -2,8 +2,6 @@
 
 if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 
-require_once('models/Model.php');
-
 /**
  * undocumented class
  *

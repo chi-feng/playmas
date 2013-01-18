@@ -37,7 +37,7 @@ class UserController {
    * @author Chi Feng
    */
   public function showRegistrationForm() {
-    $this->view->show('registration_form');
+    $this->view->show('user/new');
     $this->view->render('html');
   }
   
@@ -53,10 +53,10 @@ class UserController {
     if ($this->db->exists('users', 'username', $username)) {
       $user = $this->db->getUser('username', $username);
       $this->view->set('user', $user);
-      $this->view->show('profile');
+      $this->view->show('user/view');
       $this->view->render('html');
     } else {
-      $this->view->show('user_not_found');
+      $this->view->show('user/notfound');
       $this->view->render('html');
     }
   }
@@ -71,7 +71,7 @@ class UserController {
     $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $users = $this->db->getPaginated('users', $page);
     $this->view->set('users', $users);
-    $this->view->show('users');
+    $this->view->show('user/list');
     $this->view->render('html');
   }
   
@@ -128,7 +128,7 @@ class UserController {
       
       $this->view->set('errors', $errors);
       $this->view->set('postdata', $_POST);
-      $this->view->show('registration_form');
+      $this->view->show('user/new');
       $this->view->render('html');
       
     }

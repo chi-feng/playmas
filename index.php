@@ -31,7 +31,7 @@ try {
   // did not find matching route: display 404 page
   if (!$foundMatchingRoute) {
     header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-    $view->show('404');
+    $view->show('site/404');
     $view->render('html');
   }
 } catch (Exception $ex) {
