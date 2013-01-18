@@ -62,16 +62,10 @@ class UserController {
    * @author Jeff Liu
    */
   public function showUserTable() {
-    $users = $this->db->select('users',array('id','username','email'),'1');
-    $userArray = array();
-    if(!is_null($users)) {
-      foreach($users as $user) {
-        $userArray[] = $user;
-      }
-      $this->view->showView('users',array('userArray'=>$userArray));
-    } else {
-      $this->view->showView('user_not_found');
-    }
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $users = $this->db->getPaginated('users', $page);
+    $this->view->set('users', $users);
+    $this->view->showView('users');
   }
   
   /**
@@ -82,65 +76,55 @@ class UserController {
    * @return void
    * @author Chi Feng
    */
-  public function registerUser($postdata) {
-    // populate userArray with sanitized postdata
-    $userArray = array();
-    // keep track of errors on the way 
+  public function registerUser() {
+
+    $arr = array();
+    
     $errors = array();
     
-    $sanitized = validate($postdata['username'], 'alphanumeric', array('minlen'=>3, 'maxlen'=>30));
-    if (!$sanitized['valid']) {
-      $errors[] = 'Username must be alphanumeric between 3 and 30 characters long.';
+    if (!validate('username', $_POST['username'])) {
+      $errors[] = 'Username must be alphanumeric,dash,underscore between 3 and 30 characters.';
     } else {
-      $userArray['username'] = $sanitized['value']; 
+      if ($this->db->exists('users', 'username', $_POST['username'])) {
+        $errors[] = 'Username already in use';
+        // TODO: forgot username/pass?
+      }
     }
     
-    $sanitized = validate($postdata['email'], 'email'); 
-    if (!$sanitized['valid']) {
-      $errors[] = 'You must provide a valid email address.';
+    if (!validate('email', $_POST['email'])) {
+      $errors[] = 'Email is not valid';
     } else {
-      $userArray['email'] = $sanitized['value']; 
+      if ($this->db->exists('users', 'email', $_POST['email'])) {
+        $errors[] = 'Email already in use';
+        // TODO: forgot username/pass?
+      }
     }
     
-    if (strlen($postdata['password']) < 6) {
-      $errors[] = 'Password must be at least 6 characters long';
-    } else {
-      require_once('app/Bcrypt.php');
-      $bcrypt = new Bcrypt(BCRYPT_ITER);
-      $userArray['password_hash'] = $bcrypt->hash($postdata['password']);
-    }
-    
-    // some default values 
-    $userArray['cred'] = 0;
-    $userArray['timezone'] = -5;
-    $userArray['created'] = time();
-    $userArray['status'] = 1;
-    $userArray['description'] = 'Describe yourself';
-    $userArray['city'] = '';
-    $userArray['country'] = 'United States';
-    $userArray['twitter'] = '';
-    $userArray['display_name'] = $userArray['username'];
-    $userArray['has_picture'] = 0;
-    
-    // check if user already exists (either username or email)
-    $filters = array(array('username', '=', $userArray['username']));
-    if ($this->db->select('users','count', $filters) > 0) {
-      $errors[] = 'Username already taken.';
-    }
-    $filters = array(array('email', '=', $userArray['email']));
-    if ($this->db->select('users','count', $filters) > 0) {
-      $errors[] = 'User with specified email already exists.';
+    if (strlen($_POST['password']) < 6) {
+      $errors[] = 'Password must be at least 6 characters';
     }
     
     if (count($errors) == 0) {
-      $user = new User($userArray, $this->db, 'new');
-      $id = $user->save();
-      // TODO: actually redirect or say something more useful
-      $message = "Inserted user, id is '$id'";
-      $this->view->showView('var_dump', array('var'=>$message));
+      
+      $arr['username'] = sanitize('username', $_POST['username']);
+      $arr['email'] = sanitize('email', $_POST['email']); 
+      $arr['password_hash'] = cryptHash($_POST['password']);
+      
+      $user = new User($arr);
+      $user->save($this->db);
+      
+      createSession($user);
+      
+      header('Location: ' . route('dashboard'));
+      
     } else {
-      $this->view->showView('registration_form', array('postdata'=>$postdata, 'errors'=>$errors));
+      
+      $this->view->set('errors', $errors);
+      $this->view->set('postdata', $_POST);
+      $this->view->showView('registration_form');
+      
     }
+    
   }
   
 }
