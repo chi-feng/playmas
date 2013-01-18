@@ -84,4 +84,16 @@ function route($route) {
   return SITEROOT.$route;
 }
 
+function createSession($user) {      
+  $_SESSION['username'] = $user->get('username');
+  $_SESSION['display_name'] = $user->get('display_name');
+  $_SESSION['id'] = $user->get('id');
+}
+
+function cryptHash($value) {
+  require_once('app/Bcrypt.php');
+  $bcrypt = new Bcrypt(BCRYPT_ITER);
+  return $bcrypt->hash($value);
+}
+
 ?>
