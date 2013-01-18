@@ -43,9 +43,7 @@ class LoginController {
       $user = $this->db->getUser('username', $_POST['username']);
       $bcrypt = new Bcrypt(BCRYPT_ITER);
       if ($bcrypt->verify($_POST['password'], $user->get('password_hash'))) {
-        $_SESSION['username'] = $user->get('username');
-        $_SESSION['display_name'] = $user->get('display_name');
-        $_SESSION['id'] = $user->get('id');
+        createSession($user);
         header('Location: '.route('dashboard'));
       } else {
         $errors[] = "Username/password mismatch.";
