@@ -42,7 +42,6 @@ class RequestController {
     $user = $this->db->getUser('username',$_POST['username']);
     $arr = array(
       'from' => $_POST['from'],
-      'to' => $user->get('number'),
       'user_id' => $user->get('id'),
       'status' => REQUEST_RECEIVED,
       'body' => $_POST['body']
