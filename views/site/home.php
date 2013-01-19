@@ -14,6 +14,7 @@
   <a class="button registration-button" href="<?=route('users');?>">View Users</a>
   <a class="button registration-button" href="<?=route('numbers');?>">View Numbers</a>
   <a class="button registration-button" href="<?=route('numbers/new');?>">New Number</a>
+  <a class="button registration-button" href="<?=route('Requests/new');?>">New Request</a>
   
 </div>
 
