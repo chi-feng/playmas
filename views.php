@@ -10,6 +10,8 @@ $views = array(
   'number/list',
   'number/new',
   'number/edit',
+  'request/list',
+  'request/new',
   'user/new',
   'user/list',
   'user/view',

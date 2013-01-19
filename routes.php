@@ -15,6 +15,9 @@ $routes = array(
   array('number_list',  'GET',  'Number',  'showNumbers'),
   array('number_new',   'GET',  'Number',  'showNewNumberForm'),
   array('number_new',   'POST', 'Number',  'addNewNumber'),
+  array('request_list', 'GET',  'Request', 'showRequests'),
+  array('request_new',  'GET',  'Request', 'showNewRequestForm'),
+  array('request_new',  'POST', 'Request', 'addNewRequest'),
   array('autocomplete', 'POST', 'Ajax',    'getAutocompleteSuggestions')
 );
 
