@@ -38,9 +38,45 @@ class RequestController {
    * @return void
    * @author Jeff Liu
    */
-  public function newRequest($postdata) {
-    $requestArray = array(); //holds all the information to make new request
-    $errors = array(); //holds any errors that may arise
+  public function addNewRequest() {
+    $user = $this->db->getUser('username',$_POST['username']);
+    $arr = array(
+      'from' => $_POST['from'],
+      'to' => $user->get('number'),
+      'user_id' => $user->get('id'),
+      'status' => REQUEST_RECEIVED,
+      'body' => $_POST['body']
+    );
+    $request = new Request($arr);
+    $request->save($this->db);
+    header('Location: '.route('request_list'));
+  }
+
+  /**
+   * Shows the new request form
+   *
+   * @param null
+   * @return void
+   * @author Jeff Liu
+   */
+  public function showNewRequestForm() {
+    $this->view->show('request/new');
+    $this->view->render('html');
+  }
+
+  /**
+   * Display all requests
+   *
+   * @param null
+   * @return void
+   * @author Jeff Liu
+   */
+  public function showRequests() {
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $requests = $this->db->getPaginated('requests',$page);
+    $this->view->set('requests',$requests);
+    $this->view->show('request/list');
+    $this->view->render('html');
   }
 
 }
