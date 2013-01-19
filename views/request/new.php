@@ -2,12 +2,19 @@
   if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 ?>
 <div id="content">
-<form action="<?=route('numbers/new');?>" method="post">
+<form action="<?=route('requests/new');?>" method="post">
   
   <div class="field clearfix">
-    <label for="number">Number</label>
+    <label for="body">Request</label>
     <div class="field-wrap">
-      <input class="required" id="number" name="number" type="text" value="" />
+      <input class="required" id="body" name="body" type="text" value="" />
+    </div>
+  </div>
+
+  <div class="field clearfix">
+    <label for="from">From</label>
+    <div class="field-wrap">
+      <input class="required" id="from" name="from" type="text" value="" />
     </div>
   </div>
   
@@ -18,7 +25,7 @@
     </div>
   </div>
   
-  <input class="submit" type="submit" value="Add Number" />
+  <input class="submit" type="submit" value="Make a Request" />
   
 </form>
 </div>
