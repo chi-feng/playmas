@@ -2,55 +2,41 @@
 
 if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 
+define('REQUEST_UNINIT',0);
+define('REQUEST_RECEIVED',1);
+define('REQUEST_IGNORED',2);
+define('REQUEST_ACCEPTED',3);
+define('REQUEST_PLAYED',4);
 /**
- * undocumented class
+ * Model for a song request
  *
  * @package default
  * @author Jeff Liu
  */
 class Request extends Model{
-  /*
-   $id; //unique message id
-   $from; //from phone number
-   $to; //destination phone number
-   $user_id; //destination user id
-   $received; 
-   $seen; 
-   $response_msg; 
-   $response_time; 
-   $body; 
-   $songid; //external song info id
-  */
   
   /**
-   * undocumented function
+   * Constructor for Request model
    *
    * @param string $array 
-   * @param string $db 
    * @param string $options 
    * @author Jeff Liu
    */
-  public function __construct($array, $db, $options=array()) {
-    
-    $this->db = $db;
+  public function __construct($array, $options=array()) {
     
     $this->table = 'requests';
-    
     $this->fields = array(
-      'id' => array('type' => 'int', 'unique'=>true), 
-      'from' => array('type' => 'int'), 
-      'to' => array('type' => 'int'), 
-      'user_id' => array('type' => 'int'),
-      'received' => array('type' => 'int'),//timestamp for when received
-      'seen' => array('type' => 'int'),    //timestamp for when seen by user
-      'status' => array('type' => 'int'), //Code for status:
-                                          //0:uninit 1:received 2:ignored
-                                          //3:accepted 4:played
-                                          //negative:archived
-      'response_msg' => array('type' => 'string'),//text of response message
-      'response_time' => array('type' => 'int'),  //timestamp for response
-      'body' => array('type' => 'string'), //request msg text
-      'song_id' => array('type' => 'int')  //external song info id
+      'id'            => array('type' => 'int',   'value'=> 0), 
+      'from'          => array('type' => 'int',   'value'=> 0), 
+      'to'            => array('type' => 'int',   'value'=> 0), 
+      'user_id'       => array('type' => 'int',   'value'=> 0),
+      'received'      => array('type' => 'int',   'value'=> time()),//timestamp
+      'seen'          => array('type' => 'int',   'value'=> 0),//timestamp     
+      'status'        => array('type' => 'int',   'value'=> REQUEST_UNINIT),
+      'response_msg'  => array('type' => 'string','value'=> ''),
+      'response_time' => array('type' => 'int',   'value'=> 0), 
+      'body'          => array('type' => 'string','value'=> ''), 
+      'song_id'       => array('type' => 'int',   'value'=> 0)
     );
     $this->populate($array, $options);
   }
