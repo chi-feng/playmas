@@ -24,3 +24,6 @@ RewriteRule ^numbers/new?$ index.php?a=number_new [NC,L]
 RewriteRule ^numbers/edit/([0-9]+)/?$ index.php?a=number_edit&number=$1 [NC,L]
 RewriteRule ^numbers/?$ index.php?a=number_list [NC,L]
 
+RewriteRule ^requests/new?$ index.php?a=request_new [NC,L]
+RewriteRule ^requests/?$ index.php?a=request_list [NC,L]
+
