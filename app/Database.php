@@ -101,8 +101,8 @@ class Database {
               WHERE 1 LIMIT $lower, $numPerPage";
     }      
     elseif ($table == 'requests') { 
-      $sql = "SELECT requests.*, users.username FROM numbers 
-              LEFT JOIN users ON numbers.user_id=users.id
+      $sql = "SELECT requests.*, users.username FROM requests
+              LEFT JOIN users ON requests.user_id=users.id
               WHERE 1 LIMIT $lower, $numPerPage";
     }      
     $arr = array();
