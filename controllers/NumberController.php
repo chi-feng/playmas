@@ -14,6 +14,7 @@ class NumberController {
   }
   
   public function showNumbers() {
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $numbers = $this->db->getPaginated('numbers', 1);
     $this->view->set('numbers', $numbers);
     $this->view->show('number/list');
