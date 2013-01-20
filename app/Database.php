@@ -100,6 +100,11 @@ class Database {
               LEFT JOIN users ON numbers.user_id=users.id
               WHERE 1 LIMIT $lower, $numPerPage";
     }      
+    elseif ($table == 'requests') { 
+      $sql = "SELECT requests.*, users.username FROM numbers 
+              LEFT JOIN users ON numbers.user_id=users.id
+              WHERE 1 LIMIT $lower, $numPerPage";
+    }      
     $arr = array();
     if ($result = $this->mysqli->query($sql)) {
       while ($row = $result->fetch_assoc()) {
