@@ -48,7 +48,7 @@ class RequestController {
     );
     $request = new Request($arr);
     $request->save($this->db);
-    header('Location: '.route('request_list'));
+    header('Location: '.route('requests'));
   }
 
   /**
