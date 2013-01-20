@@ -34,7 +34,7 @@ class NumberController {
     );
     $number = new Number($arr);
     $number->save($this->db);
-    header('Location: ' . route('number_list'));
+    header('Location: ' . route('numbers'));
   }
   
 }
