@@ -52,8 +52,8 @@ class UserController {
     $username = $_GET['username'];
     if ($this->db->exists('users', 'username', $username)) {
       $user = $this->db->getUser('username', $username);
-      $numbers = $user->getNumbers();
-      $requests = $user->getRequests();
+      $numbers = $user->getNumbers($this->db);
+      $requests = $user->getRequests($this->db);
       $this->view->set('user', $user);
       $this->view->set('numbers', $numbers);
       $this->view->set('requests', $requests);
