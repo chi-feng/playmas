@@ -52,7 +52,11 @@ class UserController {
     $username = $_GET['username'];
     if ($this->db->exists('users', 'username', $username)) {
       $user = $this->db->getUser('username', $username);
+      $numbers = $user->getNumbers();
+      $requests = $user->getRequests();
       $this->view->set('user', $user);
+      $this->view->set('numbers', $numbers);
+      $this->view->set('requests', $requests);
       $this->view->show('user/view');
       $this->view->render('html');
     } else {

@@ -173,6 +173,18 @@ class Database {
     return $suggestions;
   }
   
+  public function get($table, $field, $value) {
+    $value = sanitizeString($value);
+    $sql = "SELECT * FROM $table WHERE `$field`='$value;";
+    $rows = array();
+    if ($result = $this->mysqli->query($sql)) {
+      while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+      }
+      $result->close(); 
+    }
+    return $rows;
+  }
 
 }
 
