@@ -69,9 +69,9 @@ class View {
   public function render($format, $json=array()) {
     if ($format == 'html') {
       ob_start();
-      require('views/header.php');
+      require('views/site/header.php');
       echo $this->output;
-      require('views/footer.php');
+      require('views/site/footer.php');
       ob_flush();
     } else if ($format == 'json') {
       header('Content-type: application/json');
