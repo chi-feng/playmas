@@ -52,9 +52,7 @@ $user = $this->data['user'];
     $numbers = $this->data['numbers'];
     echo '<table>';
     foreach ($numbers as $number) {
-      printf('<tr><td>%s</td><td>%s</td></tr>',
-      '<a href="'.route('users/'.$number['username']).'">'.$number['username'].'</a>',
-      $number['number']);
+      printf('<tr><td>%s</td></tr>', $number['number']);
     }
     echo '</table>';
     ?>
@@ -66,9 +64,8 @@ $user = $this->data['user'];
     echo '<table>
     <tr><th>user</th><th>body</th><th>from</th><th>received</th></tr>';
     foreach ($requests as $request) {
-      printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
-      '<a href="'.route('users/'.$request['username']).'">'.$request['username'].'</a>',
-      $request['body'],$request['from'],date('r',$request['received']));
+      printf('<tr><td>%s</td><td>%s</td><td>%s</td></tr>',
+      $request->get('body'),$request->get('from'),date('r',$request->get('received')));
     }
     echo '</table>';
     ?>
