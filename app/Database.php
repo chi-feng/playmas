@@ -174,7 +174,7 @@ class Database {
   }
   
   public function get($table, $field, $value) {
-    $value = sanitizeString($value);
+    $value = $this->sanitizeString($value);
     $sql = "SELECT * FROM $table WHERE `$field`='$value;";
     $rows = array();
     if ($result = $this->mysqli->query($sql)) {
