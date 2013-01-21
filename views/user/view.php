@@ -48,27 +48,27 @@ $user = $this->data['user'];
   </div>
   <div class="numbers">
     <h3>Numbers</h3>
+    <ul>
     <?php
     $numbers = $this->data['numbers'];
-    echo '<table>';
     foreach ($numbers as $number) {
-      printf('<tr><td>%s</td></tr>', $number->get('number'));
+      printf('<li>%s</li>', $number->get('number'));
     }
-    echo '</table>';
     ?>
+    </ul>
   </div>
   <div class="requests">
+    <table>
+    <tr><th>body</th><th>from</th><th>received</th></tr>
     <h3>Requests</h3>
     <?php
     $requests = $this->data['requests'];
-    echo '<table>
-    <tr><th>user</th><th>body</th><th>from</th><th>received</th></tr>';
     foreach ($requests as $request) {
       printf('<tr><td>%s</td><td>%s</td><td>%s</td></tr>',
       $request->get('body'),$request->get('from'),date('r',$request->get('received')));
     }
-    echo '</table>';
     ?>
+    </table>
   </div>
 </div>
 </div>
