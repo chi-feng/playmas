@@ -32,8 +32,8 @@ class User extends Model {
   
   }
   
-  public function getNumbers() {
-    $numberRows = $this->db->get('numbers', 'user_id', $this->get('id'));
+  public function getNumbers($db) {
+    $numberRows = $db->get('numbers', 'user_id', $this->get('id'));
     $numbers = array();
     if (count($numberRows) > 0) {
       foreach ($numberRows as $row) {
@@ -43,8 +43,8 @@ class User extends Model {
     return $numbers;
   }
   
-  public function getRequests() {
-    $requestRows = $this->db->get('requests', 'user_id', $this->get('id'));
+  public function getRequests($db) {
+    $requestRows = $db->get('requests', 'user_id', $this->get('id'));
     $requests = array();
     if (count($requestRows) > 0) {
       foreach ($requestRows as $row) {
