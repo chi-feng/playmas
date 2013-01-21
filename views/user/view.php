@@ -52,7 +52,7 @@ $user = $this->data['user'];
     $numbers = $this->data['numbers'];
     echo '<table>';
     foreach ($numbers as $number) {
-      printf('<tr><td>%s</td></tr>', $number['number']);
+      printf('<tr><td>%s</td></tr>', $number->get('number'));
     }
     echo '</table>';
     ?>
