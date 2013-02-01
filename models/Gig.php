@@ -10,14 +10,15 @@ class Gig extends Model {
     
     $this->fields = array(
       'id'            => array('type' => 'int',     'value' => 0), 
-      'number'        => array('type' => 'int',     'value' => 0), 
       'user_id'       => array('type' => 'int',     'value' => 0), 
       'setlist_id'    => array('type' => 'int',     'value' => 0), 
       'created'       => array('type' => 'int',     'value' => time()), 
       'begin'         => array('type' => 'int',     'value' => 0), //timestamp
       'end'           => array('type' => 'int',     'value' => 0), 
       'is_active'     => array('type' => 'boolean', 'value' => FALSE), 
-      'recording_url' => array('type' => 'string',  'value' => ''), 
+      'recording_url' => array('type' => 'string',  'value' => ''),
+      'location_id'   => array('type' => 'int',     'value' => 0),
+      'location'      => array('type' => 'virtual', 'value' => ''),
 
     );
     
