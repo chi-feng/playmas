@@ -9,7 +9,7 @@ class Gig extends Model {
     $this->table = 'Gigs';
     
     $this->fields = array(
-      'gig_name'      => array('type' => 'string',  'value' => 0),
+      'name'          => array('type' => 'string',  'value' => 0),
       'id'            => array('type' => 'int',     'value' => 0), 
       'user_id'       => array('type' => 'int',     'value' => 0), 
       'setlist_id'    => array('type' => 'int',     'value' => 0), 
@@ -17,7 +17,7 @@ class Gig extends Model {
       'begin'         => array('type' => 'int',     'value' => 0), //timestamp
       'end'           => array('type' => 'int',     'value' => 0), 
       'status'        => array('type' => 'int',     'value' => 0), 
-      'recording_url' => array('type' => 'string',  'value' => ''),
+      'url'           => array('type' => 'string',  'value' => ''),
       'location_id'   => array('type' => 'int',     'value' => 0),
       'location'      => array('type' => 'virtual', 'value' => ''),
       'venue'         => array('type' => 'string',  'value' => ''),

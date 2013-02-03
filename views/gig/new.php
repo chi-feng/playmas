@@ -2,12 +2,12 @@
   if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 ?>
 <div id="content">
-<form action="<?=route('gig/new');?>" method="post">
+<form action="<?=route('gigs/new');?>" method="post">
   
   <div class="field clearfix">
-    <label for="gig_name">Gig Name</label>
+    <label for="name">Gig Name</label>
     <div class="field-wrap">
-      <input class="required" id="gig_name" name="gig_name" type="text" value="" />
+      <input class="required" id="name" name="name" type="text" value="" />
     </div>
   </div>
 

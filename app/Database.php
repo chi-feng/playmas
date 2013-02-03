@@ -27,10 +27,21 @@ class Database {
     return $this->mysqli->real_escape_string(trim($value));
   }
   
+  private function query($sql) {
+    $timestamp = date('Y-m-d H:i:s');
+    $entry = $timestamp . ' ' . str_replace("\n", " ", $sql);
+    $entry = str_replace("  ", " ", $entry);
+    $entry = str_replace("  ", " ", $entry);
+    $entry = str_replace("  ", " ", $entry);
+    
+    file_put_contents('queries.txt', $entry."\n", FILE_APPEND); 
+    return $this->mysqli->query($sql);
+  }
+  
   public function exists($table, $field, $value) {
     $value = ($field == 'id') ? intval($value) : $this->sanitizeString($value);
     $sql = "SELECT COUNT(*) AS count FROM $table WHERE `$field`='$value'";
-    if ($result = $this->mysqli->query($sql)) {
+    if ($result = $this->query($sql)) {
       $row = $result->fetch_assoc();
       return intval($row['count']) > 0;
     }
@@ -52,7 +63,7 @@ class Database {
     $fields = '(`'.implode('`,`', $names).'`)';
     $values = '(\''.implode('\',\'', $values).'\')';
     $sql = "INSERT INTO $table $fields VALUES $values;";
-    if ($result = $this->mysqli->query($sql)) {
+    if ($result = $this->query($sql)) {
       return $this->mysqli->insert_id;
     } else {
       throw new Exception("Failed to execute query <pre>$sql</pre>");
@@ -72,7 +83,7 @@ class Database {
       }
       $set = implode(',', $set);
       $sql = "UPDATE $table SET $set WHERE `id`='$id' LIMIT 1;";
-      if ($result = $this->mysqli->query($sql)) {
+      if ($result = $this->query($sql)) {
         return $this->mysqli->affected_rows > 0;
       } else {
         throw new Exception("Failed to execute query <pre>$sql</pre>");
@@ -106,13 +117,25 @@ class Database {
               WHERE 1 LIMIT $lower, $numPerPage";
     }      
     $arr = array();
-    if ($result = $this->mysqli->query($sql)) {
+    if ($result = $this->query($sql)) {
       while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
       }
       $result->close(); 
     }
     return $arr;
+  }
+  
+  public function getLocationID($location) { 
+    $location = $this->sanitizeString($location);
+    $sql = "SELECT `zip` as `id` from `locations` WHERE `city`='$location'";
+    if ($result = $this->query($sql)) {
+      $arr = $result->fetch_assoc();
+      $result->close(); 
+      return $arr['id'];
+    } else {
+      throw new Exception("Failed to execute query <pre>$sql</pre>");
+    }
   }
   
   /**
@@ -140,7 +163,7 @@ class Database {
     $sql = "SELECT users.*, locations.city as location FROM users 
             LEFT JOIN locations ON users.location_id=locations.zip 
             WHERE users.`$field`='$value' ORDER BY users.id LIMIT 1";
-    if ($result = $this->mysqli->query($sql)) {
+    if ($result = $this->query($sql)) {
       $arr = $result->fetch_assoc();
       $result->close(); 
       return new User($arr, $this);
@@ -164,7 +187,7 @@ class Database {
       throw new Exception("Unknown field '$field'");
     }
     $suggestions = array();
-    if ($result = $this->mysqli->query($sql)) {
+    if ($result = $this->query($sql)) {
       while ($row = $result->fetch_assoc()) {
         $suggestions[] = $row[$field];
       }
@@ -177,7 +200,7 @@ class Database {
     $value = $this->sanitizeString($value);
     $sql = "SELECT * FROM $table WHERE `$field`='$value';";
     $rows = array();
-    if ($result = $this->mysqli->query($sql)) {
+    if ($result = $this->query($sql)) {
       while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
       }

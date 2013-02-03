@@ -15,7 +15,9 @@ $views = array(
   'user/new',
   'user/list',
   'user/view',
-  'user/notfound'
+  'user/notfound',
+  'gig/new',
+  'gig/list'
 );
 
 ?>
