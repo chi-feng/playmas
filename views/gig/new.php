@@ -57,5 +57,13 @@ $(document).ready(function() {
     }
   });
   
+  // add autocomplete to username field
+	$("input[name='location']").autocomplete({
+    source: function(req, add) {
+      $.post("<?=route('autocomplete/location');?>", {query: req.term}, 
+        function(data) { add(data); }, 'json');
+    }
+  });
+  
 });
 </script>
