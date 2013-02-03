@@ -16,7 +16,7 @@ class Gig extends Model {
       'created'       => array('type' => 'int',     'value' => time()), 
       'begin'         => array('type' => 'int',     'value' => 0), //timestamp
       'end'           => array('type' => 'int',     'value' => 0), 
-      'is_active'     => array('type' => 'boolean', 'value' => FALSE), 
+      'status'        => array('type' => 'int',     'value' => 0), 
       'recording_url' => array('type' => 'string',  'value' => ''),
       'location_id'   => array('type' => 'int',     'value' => 0),
       'location'      => array('type' => 'virtual', 'value' => ''),
