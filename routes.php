@@ -18,6 +18,7 @@ $routes = array(
   array('request_list', 'GET',  'Request', 'showRequests'),
   array('request_new',  'GET',  'Request', 'showNewRequestForm'),
   array('request_new',  'POST', 'Request', 'addNewRequest'),
+  array('twilio_rec',   'POST', 'Request', 'receiveTwilio'),
   array('autocomplete', 'POST', 'Ajax',    'getAutocompleteSuggestions')
 );
 
