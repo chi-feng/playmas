@@ -21,6 +21,7 @@ class Gig extends Model {
       'location_id'   => array('type' => 'int',     'value' => 0),
       'location'      => array('type' => 'virtual', 'value' => ''),
       'venue'         => array('type' => 'string',  'value' => ''),
+      'genre'         => array('type' => 'string',  'value' => ''),
     );
     
     $this->populate($array, $options);
