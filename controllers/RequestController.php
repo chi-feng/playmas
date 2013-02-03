@@ -52,7 +52,8 @@ class RequestController {
   }
 
   public function receiveTwilio() {
-    $number = $this->db->get('numbers', 'number', $_POST["To"]);
+    $to = preg_replace('/[^0-9]/s', '', $_POST["To"]);
+    $number = $this->db->get('numbers', 'number', $to);
     $user_id = $number[0]["user_id"];
     $arr = array(
       'user_id'=> $user_id,
