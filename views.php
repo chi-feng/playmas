@@ -12,12 +12,14 @@ $views = array(
   'number/edit',
   'request/list',
   'request/new',
+  'request/sms/receive',
   'user/new',
   'user/list',
   'user/view',
   'user/notfound',
   'gig/new',
-  'gig/list'
+  'gig/list',
+  'var_dump'
 );
 
 ?>

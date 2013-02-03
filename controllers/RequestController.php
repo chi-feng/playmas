@@ -53,7 +53,14 @@ class RequestController {
 
   public function receiveTwilio() {
 
-
+    ob_start();
+    var_dump($_POST);
+    $result = ob_get_clean() . "\n\n";
+    
+    file_put_contents('queries.txt', $result, FILE_APPEND); 
+    $this->view->set('var', $_POST);
+    $this->view->show('var_dump');
+    $this->view->render('html');
   }
 
   /**
