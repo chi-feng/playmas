@@ -51,6 +51,11 @@ class RequestController {
     header('Location: '.route('requests'));
   }
 
+  public function receiveTwilio() {
+
+
+  }
+
   /**
    * Shows the new request form
    *
