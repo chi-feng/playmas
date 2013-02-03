@@ -6,7 +6,7 @@ class Gig extends Model {
   
   public function __construct($array, $options=array()) {
     
-    $this->table = 'Gigs';
+    $this->table = 'gigs';
     
     $this->fields = array(
       'name'          => array('type' => 'string',  'value' => 0),
