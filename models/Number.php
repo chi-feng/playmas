@@ -10,7 +10,7 @@ class Number extends Model {
     
     $this->fields = array(
       'id'            => array('type' => 'int', 'value' => 0), 
-      'number'        => array('type' => 'int', 'value' => 0), 
+      'number'        => array('type' => 'string', 'value' => ''), 
       'user_id'       => array('type' => 'int', 'value' => 0), 
       'created'       => array('type' => 'int', 'value' => time()), 
     );

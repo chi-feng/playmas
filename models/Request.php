@@ -27,8 +27,8 @@ class Request extends Model{
     $this->table = 'requests';
     $this->fields = array(
       'id'            => array('type' => 'int',   'value'=> 0), 
-      'from'          => array('type' => 'int',   'value'=> 0), 
-      'to'            => array('type' => 'int',   'value'=> 0), 
+      'from'          => array('type' => 'string', 'value'=> ''), 
+      'to'            => array('type' => 'string', 'value'=> ''), 
       'user_id'       => array('type' => 'int',   'value'=> 0),
       'gig_id'       => array('type' => 'int',   'value'=> 0),
       'received'      => array('type' => 'int',   'value'=> time()),//timestamp
