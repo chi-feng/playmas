@@ -72,8 +72,10 @@ $(document).ready(function() {
   });
   
 
-  $(".datepicker").datepicker();
-  $(".timepicker").timepicker();
+  $('#begin-date').datepicker();
+  $("#begin-time").timepicker();
+  $('#end-date').datepicker();
+  $("#end-time").timepicker();
   
 });
 </script>
