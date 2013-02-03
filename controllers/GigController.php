@@ -24,10 +24,13 @@ class GigController {
     $user = $this->db->getUser('username', $_POST['username']);  
     $arr = array(
       'user_id' => $user->get('id'),
+      'name'    => $_POST['name'],
       'begin'   => $_POST['begin'],
       'end'     => $_POST['end'],
       'location'=> $_POST['location'],
     );
+    $location_id = $this->db->getLocationID($arr['location']);
+    $arr['location_id'] = $location_id;
     $gig = new Gig($arr);
     $gig->save($this->db);
     header('Location: ' . route('gigs'));

@@ -15,11 +15,13 @@ require_once('controllers/SiteController.php');
 require_once('controllers/AjaxController.php');
 require_once('controllers/NumberController.php');
 require_once('controllers/RequestController.php');
+require_once('controllers/GigController.php');
 
 require_once('models/Model.php');
 require_once('models/User.php');
 require_once('models/Number.php');
 require_once('models/Request.php');
+require_once('models/Gig.php');
 
 
 ?>

@@ -27,3 +27,6 @@ RewriteRule ^numbers/?$ index.php?a=number_list [NC,L]
 RewriteRule ^requests/new?$ index.php?a=request_new [NC,L]
 RewriteRule ^requests/?$ index.php?a=request_list [NC,L]
 
+RewriteRule ^gigs/new?$ index.php?a=gig_new [NC,L]
+RewriteRule ^gigs/?$ index.php?a=gig_list [NC,L]
+
