@@ -9,7 +9,7 @@ $logged_in = isset($_SESSION['username']);
   <link rel="icon" href="<?=route('favicon.png');?>" sizes="16x16" type="image/png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-  <script src="<?=route('js/timepicker.css');?>"></script>
+  <script src="<?=route('js/timepicker.js');?>"></script>
 </head>
 <body>
 <div id="wrap">

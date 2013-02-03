@@ -72,8 +72,8 @@ $(document).ready(function() {
   });
   
 
-  $("#datepicker").datepicker();
-  $("#timepicker").timepicker();
+  $(".datepicker").datepicker();
+  $(".timepicker").timepicker();
   
 });
 </script>
