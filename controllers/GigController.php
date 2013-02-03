@@ -22,11 +22,19 @@ class GigController {
    */
   public function addNewGig() {
     $user = $this->db->getUser('username', $_POST['username']);  
+    $begin_date = $_POST['begin_date'];
+    $begin_time = $_POST['begin_time'];
+    $begin = strtotime($begin_date . ' ' . $begin_time);
+    
+    $end_date = $_POST['end_date'];
+    $end_time = $_POST['end_time'];
+    $end = strtotime($end_date . ' ' . $end_time);
+    
     $arr = array(
       'user_id' => $user->get('id'),
       'name'    => $_POST['name'],
-      'begin'   => $_POST['begin'],
-      'end'     => $_POST['end'],
+      'begin'   => $begin,
+      'end'     => $end,
       'location'=> $_POST['location'],
     );
     $location_id = $this->db->getLocationID($arr['location']);

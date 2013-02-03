@@ -21,14 +21,20 @@
   <div class="field clearfix">
     <label for="begin">Start Time/Date</label>
     <div class="field-wrap">
-      <input class="required" id="begin" name="begin" type="text" value="" />
+      <input class="required" class="datepicker" id="begin-date" name="begin_date" type="text" value="" />
+    </div>
+    <div class="field-wrap">
+      <input class="required" class="timepicker" id="begin-time" name="begin_time" type="text" value="" />
     </div>
   </div>
 
   <div class="field clearfix">
     <label for="end">End Time/Date</label>
     <div class="field-wrap">
-      <input class="required" id="end" name="end" type="text" value="" />
+      <input class="required" class="datepicker" id="end-date" name="end_date" type="text" value="" />
+    </div>
+    <div class="field-wrap">
+      <input class="required" class="timepicker" id="end-time" name="end_time" type="text" value="" />
     </div>
   </div>
 
@@ -64,6 +70,10 @@ $(document).ready(function() {
         function(data) { add(data); }, 'json');
     }
   });
+  
+
+  $("#datepicker").datepicker();
+  $("#timepicker").timepicker();
   
 });
 </script>
