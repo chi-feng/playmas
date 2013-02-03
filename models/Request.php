@@ -30,7 +30,7 @@ class Request extends Model{
       'from'          => array('type' => 'int',   'value'=> 0), 
       'to'            => array('type' => 'int',   'value'=> 0), 
       'user_id'       => array('type' => 'int',   'value'=> 0),
-      'gig_id '       => array('type' => 'int',   'value'=> 0),
+      'gig_id'       => array('type' => 'int',   'value'=> 0),
       'received'      => array('type' => 'int',   'value'=> time()),//timestamp
       'seen'          => array('type' => 'int',   'value'=> 0),//timestamp     
       'status'        => array('type' => 'int',   'value'=> REQUEST_UNINIT),

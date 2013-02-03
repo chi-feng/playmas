@@ -52,7 +52,21 @@ class RequestController {
   }
 
   public function receiveTwilio() {
-
+    $number = $this->db->get('numbers', 'number', $_POST["To"]);
+    $user_id = $number[0]["user_id"];
+    $arr = array(
+      'user_id'=> $user_id,
+      'from'=> $_POST["From"],
+      'body'=> $_POST["Body"],
+      'from_country'=> $_POST["FromCountry"],
+      'from_city'=> $_POST["FromCity"],
+      'from_zip'=> $_POST["FromZip"],
+      'twilio_id'=> $_POST["SmsMessageSid"]
+    );
+    $request = new Request($arr);
+    $request->save($this->db);
+    
+    /*
     ob_start();
     var_dump($_POST);
     $result = ob_get_clean() . "\n\n";
@@ -61,6 +75,7 @@ class RequestController {
     $this->view->set('var', $_POST);
     $this->view->show('var_dump');
     $this->view->render('html');
+    */
   }
 
   /**
