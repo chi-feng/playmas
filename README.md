@@ -1,17 +1,17 @@
 TODO:
 
-RequestController
+RequestController - Jeff
   Make sure incoming requests are associated with gigs and marked appropriately as orphans
   
-GigController
+GigController - Jeff
   Get specific gig (most recent, active, etc.) 
   
 DashboardController
   Get a user's gigs (return JSON)
   Get a specific gig (return JSON)
   Get requests associated with gig (JSON)
-  End Gig 
-  Schedule Gig
+  End Gig -Jeff
+  Schedule Gig -Jeff
   
 UserController
   Reset Password
