@@ -8,12 +8,7 @@ if (!defined('INCLUDE_GUARD')) { header("HTTP/1.0 403 Forbidden"); die(); }
 define('TIMEZONE', 'America/New_York');
 date_default_timezone_set(TIMEZONE);
 
-if (strstr($_SERVER['SCRIPT_FILENAME'], 'feng')) {
-  define('SITEROOT', 'http://localhost/~feng/playmas/');
-}
-else {
-  define('SITEROOT', 'http://play.measong.com/');
-}
+define('SITEROOT', '/');
 
 define('BCRYPT_ITER', 10);
 

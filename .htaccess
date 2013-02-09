@@ -1,6 +1,6 @@
 RewriteEngine On
 
-#RewriteBase /~feng/playmas
+RewriteBase /
 
 RewriteRule ^test?$ index.php?a=test [NC,L]
 RewriteRule ^home?$ index.php?a=home [NC,L]

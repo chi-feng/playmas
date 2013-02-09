@@ -11,7 +11,7 @@ try {
   // initialize database and view
   $view = new View();
   $db = new Database();
-  $db->connect('localhost', 'root', 'hicfneg12', 'playmas');
+  $db->connect('localhost', 'playmas', 'hicfneg12', 'playmas');
   // get the action and request method
   $action = isset($_GET['a']) ? $_GET['a'] : 'home';
   $method = $_SERVER['REQUEST_METHOD'];
