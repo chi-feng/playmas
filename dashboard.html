@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="css/dashboard.css" rel="stylesheet" type="text/css" media="screen" />
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css"  rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <meta nam="apple-mobile-web-app-capable" content="yes" />
+</head>
+<body>
+<div id="dashboard">
+  <div id="nav">
+    <ul>
+      <li><a href="#"><i class="icon-dashboard"></i></a></li>
+      <li><a href="#"><i class="icon-envelope"></i></a></li>
+      <li><a href="#"><i class="icon-bar-chart"></i></a></li>
+      <li><a href="#"><i class="icon-cog"></i></a></li>
+    </ul>
+  </div>
+  <div id="panel-1">
+    <div id="info">
+      <span class="gig-name">New Year&rsquo;s Party</span> 
+      <span class="gig-location">Cambridge, MA</span>
+      <span class="gig-venue">MIT Campus</span>
+      <span class="gig-date">Dec 31, 2015</span>
+      <a class="button end-gig" href="#">End Gig</a>
+    </div>
+    <div id="feed" class="request">
+      <div class="request">
+        <span class="from">857-259-8404</span>
+        <span class="body">Hey, can u play that one song</span>
+        <span class="time">Just now</span>
+        <a class="button played" href="#"><i class="icon-ok"></i></a>
+        <a class="button ignore" href="#"><i class="icon-remove"></i></a>
+        <a class="more" href="#"><i class="icon-angle-right"></i></a>
+      </div>
+      <div class="request selected" id="test">
+        <span class="from">857-259-8404</span>
+        <span class="body">I am a unique snowflake</span>
+        <span class="time">5 minutes ago</span>
+        <a class="button played" href="#"><i class="icon-ok"></i></a>
+        <a class="button ignore" href="#"><i class="icon-remove"></i></a>
+        <a class="more" href="#"><i class="icon-angle-right"></i></a>
+
+        <div class="response-options">
+          <select class="canned-responses">
+            <optgroup label="Yes">
+              <option value="">Yeah, sure, I&rsquo;ll play it.</option>
+            </optgroup>
+            <optgroup label="No">
+              <option value="">Sorry, I don&rsquo;t have that song.</option>
+              <option value="">Oh, I already played that.</option>
+              <option value="">No, your musical preferences are bad and you should feel bad.</option>
+            </optgroup>
+            <optgroup label="Clarification">
+              <option value="">Who is that by?</option>
+            </optgroup>
+          </select>
+          <textarea class="response">Yeah, sure, I&rsquo;ll play it. &lt;/sarcasm&gt;</textarea>
+          <a class="button respond">Respond</a>
+        </div>
+      
+      </div>
+      <div class="request">
+        <span class="from">857-259-8404</span>
+        <span class="body">Hey, can u play that one song by lorem ipsum dolor sit amet wub wub wub wub wub wub wub wub wub wub.</span>
+        <span class="time">10 minutes ago</span>
+        <a class="button played" href="#"><i class="icon-ok"></i></a>
+        <a class="button ignore" href="#"><i class="icon-remove"></i></a>
+        <a class="more" href="#"><i class="icon-angle-right"></i></a>
+      </div>
+      <div class="request">
+        <span class="from">857-259-8404</span>
+        <span class="body">Heyyy</span>
+        <span class="time">1 hour ago</span>
+        <a class="button played" href="#"><i class="icon-ok"></i></a>
+        <a class="button ignore" href="#"><i class="icon-remove"></i></a>
+        <a class="more" href="#"><i class="icon-angle-right"></i></a>
+      </div>
+    </div>
+  </div>
+  <div id="panel-2">
+    <div id="details" class="request">
+      <div class="request-summary">
+        <span class="from">857-259-8404</span>
+        <span class="body">I am a unique snowflake</span>
+        <span class="time">5 minutes ago</span>
+      </div>
+    </div>
+    <div id="clock">
+      
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#test').click(function() {
+    $(this).find('.response-options').slideDown(200);
+    $(this).find('.more i').removeClass('icon-angle-up').addClass('icon-angle-down');
+    $(this).delay(200).animate({marginTop:'2em', marginBottom:'2em'}, 500);
+  });
+});
+</script>
+</body>
+</html>

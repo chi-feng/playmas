@@ -1,0 +1,196 @@
+@charset "UTF-8";
+/* default styles and fixes */
+*,*:before,*:after{margin:0;padding:0;border:0;outline:0;font-size:100%;font-weight:normal;vertical-align:baseline;background:transparent;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+html,body{height:100%;}
+table{border-collapse:collapse;}
+.clearfix:before,.clearfix:after{content:" ";display:table;}
+.clearfix:after{clear:both;}
+a{text-decoration:none;cursor:pointer;}
+ul{list-style:none;}
+.float-left{display:inline-block;float:left;}
+.float-right{display:inline-block;float:right;}
+html{font:22px/1.25 Helvetica,Arial,sans-serif;line-height:1.18;font-style:normal;font-weight:normal;text-decoration:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;}
+input,select,textarea{font:100% Helvetica,Arial,sans-serif;}
+code,pre{font-family:"Inconsolata","Consolas","Monaco",monospace;}
+
+/* portrait */
+@media (max-width:70em) {
+
+
+}
+
+/* landscape */
+@media (min-width:70em) {
+
+
+}
+/* ipad landscape */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+
+}
+/* ipad portrait */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+
+}
+
+body { }
+
+.button { padding: 0.3em; }
+
+#dashboard { background: #ccc; width: 70em; height: 50em;  }
+
+#nav { position: absolute; top: 0; left: 0; height: 50em; width: 3em; }
+#nav ul { }
+#nav ul li { }
+#nav ul li a { display: inline-block; width: 3em; height: 3em; padding: 0.5em 0; text-align:center; }
+#nav ul li a i { font-size: 150%; } 
+
+#panel-1 { position: absolute; left: 3em; height: 50em; width: 40em; }
+#info { position: absolute; top: 0; left: 0; width: 40em; height: 3em;}
+#info .gig-name, #info .gig-location, #info .gig-venue, #info .gig-date { }
+#info .gig-name { }
+#info .gig-location { }
+#info .gig-venue { } 
+#info .gig-date { } 
+
+#feed { position: absolute; top: 3em; left: 0; width: 40em; height: 47em; overflow-x:hidden; overflow-y: auto; }
+#feed.request, #feed.gig { }
+#feed.request { }
+#feed.gig { }
+
+#feed .request { width: 40em; min-height: 3em; }
+#feed .request.selected { }
+#feed .request .from, #feed .request .body, #feed .request .time { }
+#feed .request .from { }
+#feed .request .body { }
+#feed .request .time { }
+#feed .request a.played { }
+#feed .request a.played i { }
+#feed .request a.ignored { }
+#feed .request a.ignored i { }
+#feed .request a.more { }
+#feed .request a.more i { }
+
+#feed .request .response-options { display: none; }
+#feed .request .response-options select.canned-responses { }
+#feed .request .response-options textarea { }
+#feed .request .response-options a.respond { }
+
+#panel-2 { position: absolute; left: 43em; height: 50em; width: 27em;}
+#details { position: ;}
+#details.request { }
+#details.gig { }
+#details .request-summary { }
+#details .request-summary .from, #details .request-summary .body, #details .request-summary .time { }
+#details .request-summary .from { }
+#details .request-summary .body { }
+#details .request-summary .time { }
+
+/* 
+
+
+
+
+*/ 
+
+#nav { background: #fcc; }
+#nav ul { }
+#nav ul li { }
+#nav ul li a { }
+#nav ul li a i { } 
+
+#panel-1 { background: #ccf; }
+#info { background: #cfc; }
+#info .gig-name, #info .gig-location, #info .gig-venue, #info .gig-date { }
+#info .gig-name { }
+#info .gig-location { }
+#info .gig-venue { } 
+#info .gig-date { } 
+
+#feed { background: #fcf; }
+#feed.request, #feed.gig { }
+#feed.request { }
+#feed.gig { }
+
+#feed .request { background: #ccc; }
+#feed .request.selected { }
+#feed .request .from, #feed .request .body, #feed .request .time { }
+#feed .request .from { }
+#feed .request .body { }
+#feed .request .time { }
+#feed .request a.played { }
+#feed .request a.played i { }
+#feed .request a.ignored { }
+#feed .request a.ignored i { }
+#feed .request a.more { }
+#feed .request a.more i { }
+
+#panel-2 { background: #ffc; }
+#details { background: #cff; }
+#details.request { }
+#details.gig { }
+#details .request-summary { }
+#details .request-summary .from, #details .request-summary .body, #details .request-summary .time { }
+#details .request-summary .from { }
+#details .request-summary .body { }
+#details .request-summary .time { }
+#details .response-options { }
+#details .response-options select.canned-responses { }
+#details .response-options textarea { }
+#details .response-options a.respond { }
+
+/* 
+
+
+
+*/
+
+#dashboard * {
+  border: 1px solid #000;
+}
+
+
+#nav { }
+#nav ul { }
+#nav ul li { }
+#nav ul li a { }
+#nav ul li a i { } 
+
+#panel-1 { }
+#info { }
+#info .gig-name, #info .gig-location, #info .gig-venue, #info .gig-date { }
+#info .gig-name { }
+#info .gig-location { }
+#info .gig-venue { } 
+#info .gig-date { } 
+
+#feed { }
+#feed.request, #feed.gig { }
+#feed.request { }
+#feed.gig { }
+
+#feed .request.selected { }
+#feed .request .from, #feed .request .body, #feed .request .time { }
+#feed .request .from { }
+#feed .request .body { }
+#feed .request .time { }
+#feed .request a.played { }
+#feed .request a.played i { }
+#feed .request a.ignored { }
+#feed .request a.ignored i { }
+#feed .request a.more { }
+#feed .request a.more i { }
+
+#panel-2 { }
+#details { }
+#details.request { }
+#details.gig { }
+#details .request-summary { }
+#details .request-summary .from, #details .request-summary .body, #details .request-summary .time { }
+#details .request-summary .from { }
+#details .request-summary .body { }
+#details .request-summary .time { }
+#details .response-options { }
+#details .response-options select.canned-responses { }
+#details .response-options textarea { }
+#details .response-options a.respond { }
